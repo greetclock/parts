@@ -7,7 +7,8 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -47,15 +48,22 @@
     "@typescript-eslint/parser": "~5.24.0",
     "cypress": "^9.1.0",
     "eslint": "~8.15.0",
-    "eslint-config-prettier": "8.1.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
     "husky": "^8.0.1",
     "jest": "27.5.1",
     "jest-preset-angular": "~11.1.2",
+    "lint-staged": "^13.0.3",
     "nx": "14.3.6",
-    "prettier": "^2.6.2",
+    "prettier": "2.7.1",
     "ts-jest": "27.1.4",
     "ts-node": "~10.8.0",
     "typescript": "~4.7.2"
+  },
+  "lint-staged": {
+    "**/*": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
   }
 }
