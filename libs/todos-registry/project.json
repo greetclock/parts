@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/todos-registry/src",
+  "prefix": "parts",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/todos-registry"],
+      "options": {
+        "jestConfig": "libs/todos-registry/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/todos-registry/**/*.ts",
+          "libs/todos-registry/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
