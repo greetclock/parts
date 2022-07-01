@@ -22,6 +22,7 @@
     "@angular/router": "~14.0.0",
     "@nrwl/angular": "14.3.6",
     "rxjs": "~7.4.0",
+    "tailwindcss": "^3.1.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
@@ -55,14 +56,18 @@
     "jest-preset-angular": "~11.1.2",
     "lint-staged": "^13.0.3",
     "nx": "14.3.6",
+    "postcss": "^8.4.14",
     "prettier": "2.7.1",
     "ts-jest": "27.1.4",
     "ts-node": "~10.8.0",
     "typescript": "~4.7.2"
   },
   "lint-staged": {
-    "**/*": [
+    "**/*.{js,ts}": [
       "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ],
+    "**/*": [
       "prettier --write --ignore-unknown"
     ]
   }
