@@ -1,1 +1,1 @@
-export * from './lib/todos.module';
+export * from './lib/todos.module'
