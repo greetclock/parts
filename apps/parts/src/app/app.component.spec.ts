@@ -8,4 +8,8 @@ describe('AppComponent', () => {
       declarations: [AppComponent, NxWelcomeComponent],
     }).compileComponents()
   })
+
+  it('', () => {
+    // placeholder
+  })
 })
