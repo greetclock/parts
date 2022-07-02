@@ -2,6 +2,8 @@
 export default {
   displayName: 'todos-data',
   preset: '../../jest.preset.js',
+  resetMocks: false,
+  setupFiles: ['jest-localstorage-mock'],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
