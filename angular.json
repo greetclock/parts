@@ -5,6 +5,7 @@
     "parts": "apps/parts",
     "parts-e2e": "apps/parts-e2e",
     "todos": "libs/todos",
+    "todos-data": "libs/todos-data",
     "todos-registry": "libs/todos-registry"
   }
 }
