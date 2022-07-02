@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core'
-import { Observable, throwError } from 'rxjs'
+import { Observable } from 'rxjs'
+import { CreateTodo, TodosAdapterService } from './todos-adapter.service'
 import { Todo } from './types'
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodosFacadeService {
+  constructor(private todosAdapter: TodosAdapterService) {}
+
   getTodos(): Observable<Todo[]> {
-    return throwError('TodosFacadeService.getTodos(): not implemented yet')
+    return this.todosAdapter.getTodos()
   }
 
-  createTodo(): Observable<Todo> {
-    return throwError('TodosFacadeService.createTodo(): not implemented yet')
+  getTodoByUuid(uuid: string): Observable<Todo | null> {
+    return this.todosAdapter.getTodoByUuid(uuid)
   }
 
-  deleteTodo(): Observable<Todo> {
-    return throwError('TodosFacadeService.deleteTodo(): not implemented yet')
+  createTodo(data: CreateTodo): Observable<Todo> {
+    return this.todosAdapter.createTodo(data)
   }
 
-  updateTodo(): Observable<Todo> {
-    return throwError('TodosFacadeService.updateTodo(): not implemented yet')
+  deleteTodo(uuid: string): Observable<void> {
+    return this.todosAdapter.deleteTodo(uuid)
+  }
+
+  updateTodo(todo: Todo): Observable<Todo> {
+    return this.todosAdapter.updateTodo(todo)
   }
 }
