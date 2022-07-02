@@ -3,6 +3,8 @@ import { Todo } from './types'
 
 export type CreateTodo = Omit<Todo, 'uuid'>
 
+export class TodoNotFoundError extends Error {}
+
 export abstract class TodosAdapterService {
   abstract getTodos(): Observable<Todo[]>
 
@@ -12,5 +14,8 @@ export abstract class TodosAdapterService {
 
   abstract deleteTodo(uuid: string): Observable<void>
 
+  /**
+   * @throws TodoNotFoundError
+   */
   abstract updateTodo(todo: Todo): Observable<Todo>
 }

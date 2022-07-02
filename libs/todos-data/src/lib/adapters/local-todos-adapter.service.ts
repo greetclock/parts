@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core'
-import { delay, Observable, throwError } from 'rxjs'
+import { delay, Observable } from 'rxjs'
 import { v4 as getUuid } from 'uuid'
-import { CreateTodo, TodosAdapterService } from '../todos-adapter.service'
+import {
+  CreateTodo,
+  TodoNotFoundError,
+  TodosAdapterService,
+} from '../todos-adapter.service'
 import { Todo } from '../types'
 
-interface Data {
+export interface LocalStorageData {
   todos: Todo[]
 }
+
+export const DELAY_MS = 500
 
 @Injectable()
 export class LocalTodosAdapterService extends TodosAdapterService {
@@ -25,26 +31,60 @@ export class LocalTodosAdapterService extends TodosAdapterService {
 
       subscriber.next(todo)
       subscriber.complete()
-    }).pipe(delay(500))
+    }).pipe(delay(DELAY_MS))
   }
 
   deleteTodo(uuid: string): Observable<void> {
-    return throwError('Not implemented')
+    return new Observable((subscriber) => {
+      const data = this.getData()
+      data.todos = data.todos.filter((it) => it.uuid !== uuid)
+      this.saveData(data)
+
+      subscriber.next()
+      subscriber.complete()
+    })
   }
 
   getTodoByUuid(uuid: string): Observable<Todo | null> {
-    return throwError('Not implemented')
+    return new Observable<Todo | null>((subscriber) => {
+      const data = this.getData()
+      const todo = data.todos.find((it) => it.uuid === uuid)
+
+      subscriber.next(todo ?? null)
+      subscriber.complete()
+    }).pipe(delay(DELAY_MS))
   }
 
   getTodos(): Observable<Todo[]> {
-    return throwError('Not implemented')
+    return new Observable<Todo[]>((subscriber) => {
+      const data = this.getData()
+      subscriber.next(data.todos)
+      subscriber.complete()
+    }).pipe(delay(DELAY_MS))
   }
 
   updateTodo(todo: Todo): Observable<Todo> {
-    return throwError('Not implemented')
+    return new Observable<Todo>((subscriber) => {
+      const data = this.getData()
+
+      const savedTodo = data.todos.find((it) => it.uuid === todo.uuid)
+      if (!savedTodo) {
+        subscriber.error(new TodoNotFoundError())
+        return
+      }
+
+      const todoIndex = data.todos.indexOf(savedTodo)
+
+      data.todos[todoIndex] = todo
+
+      this.saveData(data)
+
+      subscriber.next(todo)
+      subscriber.complete()
+    }).pipe(delay(DELAY_MS))
   }
 
-  private getData(): Data {
+  private getData(): LocalStorageData {
     const data = localStorage.getItem('todos')
     if (!data) {
       return {
@@ -55,7 +95,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
     return JSON.parse(data)
   }
 
-  private saveData(data: Data) {
+  private saveData(data: LocalStorageData) {
     localStorage.setItem('todos', JSON.stringify(data))
   }
 }
