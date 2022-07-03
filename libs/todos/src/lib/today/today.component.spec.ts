@@ -1,22 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
+import {
+  createComponentFactory,
+  mockProvider,
+  Spectator,
+} from '@ngneat/spectator/jest'
+import { RxState } from '@rx-angular/state'
 import { TodayComponent } from './today.component'
 
 describe('TodayComponent', () => {
-  let component: TodayComponent
-  let fixture: ComponentFixture<TodayComponent>
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [TodayComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(TodayComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
+  let spectator: Spectator<TodayComponent>
+  const createComponent = createComponentFactory({
+    component: TodayComponent,
+    providers: [mockProvider(RxState)],
   })
 
   it('should create', () => {
-    expect(component).toBeTruthy()
+    spectator = createComponent()
+
+    expect(spectator.component).toBeTruthy()
   })
 })

@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@parts/test-helpers": ["libs/test-helpers/src/index.ts"],
       "@parts/todos": ["libs/todos/src/index.ts"],
       "@parts/todos/data": ["libs/todos-data/src/index.ts"],
       "@parts/todos/registry": ["libs/todos-registry/src/index.ts"]

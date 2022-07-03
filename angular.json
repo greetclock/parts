@@ -4,6 +4,7 @@
   "projects": {
     "parts": "apps/parts",
     "parts-e2e": "apps/parts-e2e",
+    "test-helpers": "libs/test-helpers",
     "todos": "libs/todos",
     "todos-data": "libs/todos-data",
     "todos-registry": "libs/todos-registry"

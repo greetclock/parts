@@ -3,12 +3,16 @@ import { RxState } from '@rx-angular/state'
 import { TodosMainComponentState } from '../todos-main/todos-main.component'
 
 @Component({
-  selector: 'parts-today',
-  templateUrl: './today.component.html',
-  styleUrls: ['./today.component.css'],
+  selector: 'parts-controls',
+  templateUrl: './controls.component.html',
+  styleUrls: ['./controls.component.css'],
 })
-export class TodayComponent {
-  addingNew$ = this.state.select('addingNew')
-
+export class ControlsComponent {
   constructor(private state: RxState<TodosMainComponentState>) {}
+
+  addNew() {
+    this.state.set({
+      addingNew: true,
+    })
+  }
 }
