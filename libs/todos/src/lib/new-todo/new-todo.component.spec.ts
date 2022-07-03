@@ -3,13 +3,15 @@ import {
   mockProvider,
   Spectator,
 } from '@ngneat/spectator/jest'
+import { TodosDataModule } from '@parts/todos/data'
 import { RxState } from '@rx-angular/state'
-import { TodayComponent } from './today.component'
+import { NewTodoComponent } from './new-todo.component'
 
-describe('TodayComponent', () => {
-  let spectator: Spectator<TodayComponent>
+describe('NewTodoComponent', () => {
+  let spectator: Spectator<NewTodoComponent>
   const createComponent = createComponentFactory({
-    component: TodayComponent,
+    component: NewTodoComponent,
+    imports: [TodosDataModule],
     providers: [mockProvider(RxState)],
   })
 
