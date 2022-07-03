@@ -1,7 +1,7 @@
 import { fakeAsync, tick } from '@angular/core/testing'
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest'
 import { v4 as getUuid } from 'uuid'
-import { CreateTodo, TodoNotFoundError } from '../todos-adapter.service'
+import { CreateTodoDto, TodoNotFoundError } from '../todos-adapter.service'
 import { Todo } from '../types'
 import {
   DELAY_MS,
@@ -31,7 +31,7 @@ describe('LocalTodosAdapterService', () => {
 
   describe('createTodo()', () => {
     it('should create entry in the localStorage', fakeAsync(() => {
-      const todo: CreateTodo = {
+      const todo: CreateTodoDto = {
         title: 'Buy Milk',
       }
 

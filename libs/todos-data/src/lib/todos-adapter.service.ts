@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { Todo } from './types'
 
-export type CreateTodo = Omit<Todo, 'uuid'>
+export type CreateTodoDto = Omit<Todo, 'uuid'>
 
 export class TodoNotFoundError extends Error {}
 
@@ -10,7 +10,7 @@ export abstract class TodosAdapterService {
 
   abstract getTodoByUuid(uuid: string): Observable<Todo | null>
 
-  abstract createTodo(todo: CreateTodo): Observable<Todo>
+  abstract createTodo(todo: CreateTodoDto): Observable<Todo>
 
   abstract deleteTodo(uuid: string): Observable<void>
 

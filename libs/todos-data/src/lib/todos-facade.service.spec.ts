@@ -2,7 +2,7 @@ import { SpectatorService } from '@ngneat/spectator'
 import { createServiceFactory, mockProvider } from '@ngneat/spectator/jest'
 import { mockObservable } from '@parts/test-helpers'
 import { v4 as getUuid } from 'uuid'
-import { CreateTodo, TodosAdapterService } from './todos-adapter.service'
+import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
 import { TodosFacadeService } from './todos-facade.service'
 import { Todo } from './types'
 
@@ -16,7 +16,7 @@ describe('TodosFacadeService', () => {
       mockProvider(TodosAdapterService, {
         getTodos: mockObservable(() => todosList),
         getTodoByUuid: mockObservable(() => todoByUuid),
-        createTodo: mockObservable((data: CreateTodo) => ({
+        createTodo: mockObservable((data: CreateTodoDto) => ({
           uuid: getUuid(),
           ...data,
         })),
@@ -74,7 +74,7 @@ describe('TodosFacadeService', () => {
     it('should create todo using the adapter', (done) => {
       spectator = createService()
 
-      const todoDto: CreateTodo = {
+      const todoDto: CreateTodoDto = {
         title: 'Buy milk',
       }
 

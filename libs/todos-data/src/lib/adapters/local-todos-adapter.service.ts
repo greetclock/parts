@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { delay, Observable } from 'rxjs'
 import { v4 as getUuid } from 'uuid'
 import {
-  CreateTodo,
+  CreateTodoDto,
   TodoNotFoundError,
   TodosAdapterService,
 } from '../todos-adapter.service'
@@ -16,7 +16,7 @@ export const DELAY_MS = 500
 
 @Injectable()
 export class LocalTodosAdapterService extends TodosAdapterService {
-  createTodo(createTodo: CreateTodo): Observable<Todo> {
+  createTodo(createTodo: CreateTodoDto): Observable<Todo> {
     return new Observable<Todo>((subscriber) => {
       const uuid = getUuid()
 
