@@ -1,1 +1,2 @@
 <parts-new-todo *ngIf="addingNew$ | async"></parts-new-todo>
+<parts-todo-entry *ngFor="let todo of todos" [todo]="todo"></parts-todo-entry>

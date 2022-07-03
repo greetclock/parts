@@ -7,6 +7,8 @@ import { NewTodoComponent } from './new-todo/new-todo.component'
 import { TodosRoutingModule } from './routing/todos-routing.module'
 import { TodayComponent } from './today/today.component'
 import { TodosMainComponent } from './todos-main/todos-main.component'
+import { TodoEntryComponent } from './todo-entry/todo-entry.component'
+import { CheckboxComponent } from './checkbox/checkbox.component'
 
 @NgModule({
   imports: [CommonModule, TodosRoutingModule, FormsModule, TodosDataModule],
@@ -15,6 +17,8 @@ import { TodosMainComponent } from './todos-main/todos-main.component'
     TodosMainComponent,
     ControlsComponent,
     NewTodoComponent,
+    TodoEntryComponent,
+    CheckboxComponent,
   ],
 })
 export class TodosModule {}
