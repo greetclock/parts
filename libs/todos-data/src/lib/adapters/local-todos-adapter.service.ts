@@ -16,6 +16,12 @@ export const DELAY_MS = 500
 
 @Injectable()
 export class LocalTodosAdapterService extends TodosAdapterService {
+  constructor() {
+    super()
+
+    this.enableConsoleCommands()
+  }
+
   createTodo(createTodo: CreateTodoDto): Observable<Todo> {
     return new Observable<Todo>((subscriber) => {
       const uuid = getUuid()
@@ -30,7 +36,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
           const error = new Error('Unknown error')
           console.warn(error)
           subscriber.error(error)
-        }, 1000)
+        }, DELAY_MS)
       } else {
         const data = this.getData()
         data.todos.push(todo)
@@ -105,5 +111,12 @@ export class LocalTodosAdapterService extends TodosAdapterService {
 
   private saveData(data: LocalStorageData) {
     localStorage.setItem('todos', JSON.stringify(data))
+  }
+
+  private enableConsoleCommands() {
+    ;(window as any).clearTodos = () => {
+      localStorage.removeItem('todos')
+      window.location.reload()
+    }
   }
 }
