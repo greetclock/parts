@@ -8,11 +8,13 @@
       placeholder="New To-Do"
       class="w-full p-1 -mt-1"
       (keydown.enter)="save()"
+      (keydown.meta.enter)="save()"
       [(ngModel)]="title"
     />
     <textarea
       placeholder="Notes"
       class="mt-3 w-full p-1 resize-none"
+      (keydown.meta.enter)="save()"
       [(ngModel)]="description"
     ></textarea>
     <div class="ml-1 font-bold flex">

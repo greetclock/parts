@@ -1,6 +1,6 @@
 import { SpectatorService } from '@ngneat/spectator'
 import { createServiceFactory, mockProvider } from '@ngneat/spectator/jest'
-import { defer, of } from 'rxjs'
+import { mockObservable } from '@parts/test-helpers'
 import { v4 as getUuid } from 'uuid'
 import { CreateTodo, TodosAdapterService } from './todos-adapter.service'
 import { TodosFacadeService } from './todos-facade.service'
@@ -9,11 +9,6 @@ import { Todo } from './types'
 describe('TodosFacadeService', () => {
   let todosList: Todo[]
   let todoByUuid: Todo
-
-  const mockObservable = (value: (...args: any[]) => any) =>
-    jest
-      .fn()
-      .mockImplementation((...args: any[]) => defer(() => of(value(...args))))
 
   const createService = createServiceFactory({
     service: TodosFacadeService,
