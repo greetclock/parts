@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { CreateTodo, TodosAdapterService } from './todos-adapter.service'
+import { TodosDataService } from './todos-data.service'
 import { Todo } from './types'
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodosFacadeService {
-  constructor(private todosAdapter: TodosAdapterService) {}
+  constructor(
+    private todosAdapter: TodosAdapterService,
+    private todosData: TodosDataService
+  ) {}
 
   getTodos(): Observable<Todo[]> {
-    return this.todosAdapter.getTodos()
+    return this.todosData.getTodos()
   }
 
   getTodoByUuid(uuid: string): Observable<Todo | null> {
