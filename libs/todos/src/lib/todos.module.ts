@@ -9,6 +9,7 @@ import { TodayComponent } from './today/today.component'
 import { TodosMainComponent } from './todos-main/todos-main.component'
 import { TodoEntryComponent } from './todo-entry/todo-entry.component'
 import { CheckboxComponent } from './checkbox/checkbox.component'
+import { AutofocusDirective } from './autofocus.directive'
 
 @NgModule({
   imports: [CommonModule, TodosRoutingModule, FormsModule, TodosDataModule],
@@ -19,6 +20,7 @@ import { CheckboxComponent } from './checkbox/checkbox.component'
     NewTodoComponent,
     TodoEntryComponent,
     CheckboxComponent,
+    AutofocusDirective,
   ],
 })
 export class TodosModule {}
