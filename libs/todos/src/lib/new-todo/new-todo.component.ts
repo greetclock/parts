@@ -1,13 +1,15 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   HostListener,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core'
-import { TodosFacadeService } from '@parts/todos/data'
+import { CreateTodoDto } from '@parts/todos/data'
 import { RxState } from '@rx-angular/state'
-import { mergeMap, partition, skip, Subject, takeUntil } from 'rxjs'
+import { map, partition, skip, Subject, takeUntil } from 'rxjs'
 import { TodosMainComponentState } from '../todos-main/todos-main.component'
 
 @Component({
@@ -19,18 +21,19 @@ export class NewTodoComponent implements OnInit, OnDestroy {
   title = ''
   description = ''
 
+  @Output() createTodo = new EventEmitter<CreateTodoDto>()
+
   private destroy$ = new Subject<void>()
 
   private outsideClicks$ = new Subject<void>()
 
   constructor(
-    private todosFacade: TodosFacadeService,
     private state: RxState<TodosMainComponentState>,
     private elementRef: ElementRef
   ) {}
 
   save() {
-    this.save$().subscribe()
+    this.createTodo.next(this.getCreateTodoDto())
   }
 
   @HostListener('document:click', ['$event'])
@@ -69,25 +72,23 @@ export class NewTodoComponent implements OnInit, OnDestroy {
 
     withoutData$.subscribe(() => this.disableAddingNew())
 
-    withData$.pipe(mergeMap(() => this.save$())).subscribe()
+    withData$
+      .pipe(map(() => this.getCreateTodoDto()))
+      .subscribe(this.createTodo)
   }
 
   private userEnteredData(): boolean {
     return this.title !== '' || this.description !== ''
   }
 
-  private save$() {
-    this.disableAddingNew()
-
-    return this.todosFacade
-      .createTodo({
-        title: this.title,
-        description: this.description,
-      })
-      .pipe(takeUntil(this.destroy$))
-  }
-
   private closingClicks$() {
     return this.outsideClicks$.pipe(skip(1), takeUntil(this.destroy$))
+  }
+
+  private getCreateTodoDto(): CreateTodoDto {
+    return {
+      title: this.title,
+      description: this.description,
+    }
   }
 }

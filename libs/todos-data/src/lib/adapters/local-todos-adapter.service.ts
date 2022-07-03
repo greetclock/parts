@@ -25,12 +25,20 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         ...createTodo,
       }
 
-      const data = this.getData()
-      data.todos.push(todo)
-      this.saveData(data)
+      if (Math.random() > 0.9) {
+        setTimeout(() => {
+          const error = new Error('Unknown error')
+          console.warn(error)
+          subscriber.error(error)
+        }, 1000)
+      } else {
+        const data = this.getData()
+        data.todos.push(todo)
+        this.saveData(data)
 
-      subscriber.next(todo)
-      subscriber.complete()
+        subscriber.next(todo)
+        subscriber.complete()
+      }
     }).pipe(delay(DELAY_MS))
   }
 
