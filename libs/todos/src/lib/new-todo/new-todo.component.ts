@@ -7,7 +7,7 @@ import {
 } from '@angular/core'
 import { TodosFacadeService } from '@parts/todos/data'
 import { RxState } from '@rx-angular/state'
-import { mergeMap, partition, skip, Subject, takeUntil, tap } from 'rxjs'
+import { mergeMap, partition, skip, Subject, takeUntil } from 'rxjs'
 import { TodosMainComponentState } from '../todos-main/todos-main.component'
 
 @Component({
@@ -77,15 +77,14 @@ export class NewTodoComponent implements OnInit, OnDestroy {
   }
 
   private save$() {
+    this.disableAddingNew()
+
     return this.todosFacade
       .createTodo({
         title: this.title,
         description: this.description,
       })
-      .pipe(
-        tap(() => this.disableAddingNew()),
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
   }
 
   private closingClicks$() {

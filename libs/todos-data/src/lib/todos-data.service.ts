@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Observable, tap } from 'rxjs'
+import { catchError, Observable, tap, throwError } from 'rxjs'
+import { v4 as getUuid } from 'uuid'
 import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
 import { TodosRepository } from './todos.repository'
 import { Todo } from './types'
@@ -20,8 +21,21 @@ export class TodosDataService {
   }
 
   createTodo(todo: CreateTodoDto): Observable<Todo> {
-    return this.todosAdapter
-      .createTodo(todo)
-      .pipe(tap((todo) => this.todosRepo.addTodo(todo)))
+    const tempUuid = getUuid()
+    this.todosRepo.addTodo({
+      uuid: tempUuid,
+      ...todo,
+    })
+
+    return this.todosAdapter.createTodo(todo).pipe(
+      tap((todo) => {
+        this.todosRepo.updateTodoUuid(tempUuid, todo.uuid)
+        this.todosRepo.updateTodo(todo.uuid, todo)
+      }),
+      catchError((error) => {
+        this.todosRepo.deleteTodo(tempUuid)
+        return throwError(() => error)
+      })
+    )
   }
 }

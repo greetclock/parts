@@ -11,8 +11,8 @@
   </svg>
   <span class="text-2xl font-bold ml-1">Today</span>
 </h1>
-<parts-new-todo *ngIf="addingNew$ | async"></parts-new-todo>
 <parts-todo-entry
   *ngFor="let todo of todosFacade.todos$ | async"
   [todo]="todo"
 ></parts-todo-entry>
+<parts-new-todo *ngIf="addingNew$ | async"></parts-new-todo>
