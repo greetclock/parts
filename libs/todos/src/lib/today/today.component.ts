@@ -12,17 +12,15 @@ import { TodosMainComponentState } from '../todos-main/todos-main.component'
 export class TodayComponent implements OnInit, OnDestroy {
   addingNew$ = this.state.select('addingNew')
 
-  todos: Todo[] = []
-
   private destroy$ = new Subject<void>()
 
   constructor(
     private state: RxState<TodosMainComponentState>,
-    private todosFacade: TodosFacadeService
+    public todosFacade: TodosFacadeService
   ) {}
 
   ngOnInit(): void {
-    this.watchTodos()
+    this.requestTodos()
   }
 
   ngOnDestroy(): void {
@@ -30,10 +28,7 @@ export class TodayComponent implements OnInit, OnDestroy {
     this.destroy$.complete()
   }
 
-  private watchTodos() {
-    this.todosFacade
-      .getTodos()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((todos) => (this.todos = todos))
+  private requestTodos() {
+    this.todosFacade.getTodos().pipe(takeUntil(this.destroy$)).subscribe()
   }
 }
