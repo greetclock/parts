@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { LocalTodosAdapterService } from './adapters/local-todos-adapter.service'
 import { TodosAdapterService } from './todos-adapter.service'
+import { TodosDataService } from './todos-data.service'
 import { TodosFacadeService } from './todos-facade.service'
 
 @NgModule({
@@ -12,6 +13,7 @@ import { TodosFacadeService } from './todos-facade.service'
       useClass: LocalTodosAdapterService,
     },
     TodosFacadeService,
+    TodosDataService,
   ],
 })
 export class TodosDataModule {}

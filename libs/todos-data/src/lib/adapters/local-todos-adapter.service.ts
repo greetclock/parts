@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { delay, Observable } from 'rxjs'
 import { v4 as getUuid } from 'uuid'
 import {
-  CreateTodo,
+  CreateTodoDto,
   TodoNotFoundError,
   TodosAdapterService,
 } from '../todos-adapter.service'
@@ -16,7 +16,13 @@ export const DELAY_MS = 500
 
 @Injectable()
 export class LocalTodosAdapterService extends TodosAdapterService {
-  createTodo(createTodo: CreateTodo): Observable<Todo> {
+  constructor() {
+    super()
+
+    this.enableConsoleCommands()
+  }
+
+  createTodo(createTodo: CreateTodoDto): Observable<Todo> {
     return new Observable<Todo>((subscriber) => {
       const uuid = getUuid()
 
@@ -25,12 +31,20 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         ...createTodo,
       }
 
-      const data = this.getData()
-      data.todos.push(todo)
-      this.saveData(data)
+      if (Math.random() > 0.9) {
+        setTimeout(() => {
+          const error = new Error('Unknown error')
+          console.warn(error)
+          subscriber.error(error)
+        }, DELAY_MS)
+      } else {
+        const data = this.getData()
+        data.todos.push(todo)
+        this.saveData(data)
 
-      subscriber.next(todo)
-      subscriber.complete()
+        subscriber.next(todo)
+        subscriber.complete()
+      }
     }).pipe(delay(DELAY_MS))
   }
 
@@ -97,5 +111,12 @@ export class LocalTodosAdapterService extends TodosAdapterService {
 
   private saveData(data: LocalStorageData) {
     localStorage.setItem('todos', JSON.stringify(data))
+  }
+
+  private enableConsoleCommands() {
+    ;(window as any).clearTodos = () => {
+      localStorage.removeItem('todos')
+      window.location.reload()
+    }
   }
 }

@@ -27,33 +27,17 @@ describe('NewTodoComponent', () => {
     expect(spectator.component).toBeTruthy()
   })
 
-  it('should submit data when saved', waitForAsync(() => {
+  it('should output data when saved', (done) => {
     spectator = createComponent()
 
     spectator.component.title = 'Buy Milk'
     spectator.component.description = 'And eggs'
 
-    spectator.component.save()
-
-    expect(
-      spectator.inject(TodosFacadeService).createTodo
-    ).toHaveBeenCalledWith({
-      title: 'Buy Milk',
-      description: 'And eggs',
+    spectator.component.createTodo.subscribe((data) => {
+      expect(data).toEqual({ title: 'Buy Milk', description: 'And eggs' })
+      done()
     })
-  }))
-
-  it('should disable addingNew state after successfull saving', fakeAsync(() => {
-    spectator = createComponent()
-
-    spectator.component.title = 'Buy Milk'
-    spectator.component.description = 'And eggs'
 
     spectator.component.save()
-    tick()
-
-    expect(spectator.inject(RxState).set).toHaveBeenCalledWith({
-      addingNew: false,
-    })
-  }))
+  })
 })
