@@ -58,17 +58,8 @@ export class NewTodoComponent implements OnInit, OnDestroy {
     this.outsideClicks$.complete()
   }
 
-  private disableAddingNew() {
-    this.state.set({
-      addingNew: false,
-    })
-  }
-
   private watchOutsideClicks() {
-    const clicks$ = this.closingClicks$()
-    const [withData$, withoutData$] = partition(clicks$, () =>
-      this.userEnteredData()
-    )
+    const [withData$, withoutData$] = this.separateOuterClicks()
 
     withoutData$.subscribe(() => this.disableAddingNew())
 
@@ -77,12 +68,23 @@ export class NewTodoComponent implements OnInit, OnDestroy {
       .subscribe(this.createTodo)
   }
 
-  private userEnteredData(): boolean {
-    return this.title !== '' || this.description !== ''
+  private separateOuterClicks() {
+    const clicks$ = this.closingClicks$()
+    return partition(clicks$, () => this.userEnteredData())
+  }
+
+  private disableAddingNew() {
+    this.state.set({
+      addingNew: false,
+    })
   }
 
   private closingClicks$() {
     return this.outsideClicks$.pipe(skip(1), takeUntil(this.destroy$))
+  }
+
+  private userEnteredData(): boolean {
+    return this.title !== '' || this.description !== ''
   }
 
   private getCreateTodoDto(): CreateTodoDto {
