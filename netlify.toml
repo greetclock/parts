@@ -1,0 +1,6 @@
+# SPA redirection for the Angular app
+# https://docs.netlify.com/configure-builds/file-based-configuration/#redirects
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
