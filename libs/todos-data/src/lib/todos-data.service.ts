@@ -4,6 +4,7 @@ import { v4 as getUuid } from 'uuid'
 import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
 import { TodosRepository } from './todos.repository'
 import { Todo } from './types'
+import { UuidGeneratorService } from './uuid-generator.service'
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,8 @@ import { Todo } from './types'
 export class TodosDataService {
   constructor(
     private todosAdapter: TodosAdapterService,
-    private todosRepo: TodosRepository
+    private todosRepo: TodosRepository,
+    private uuidGenerator: UuidGeneratorService
   ) {}
 
   getTodos(): Observable<Todo[]> {
@@ -21,7 +23,8 @@ export class TodosDataService {
   }
 
   createTodo(todo: CreateTodoDto): Observable<Todo> {
-    const tempUuid = getUuid()
+    const tempUuid = this.uuidGenerator.getUuid()
+
     this.todosRepo.addTodo({
       uuid: tempUuid,
       ...todo,
