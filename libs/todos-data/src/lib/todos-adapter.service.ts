@@ -18,4 +18,12 @@ export abstract class TodosAdapterService {
    * @throws TodoNotFoundError
    */
   abstract updateTodo(todo: Todo): Observable<Todo>
+
+  /**
+   * @throws TodoNotFoundError
+   */
+  abstract updateTodoStatus(
+    uuid: string,
+    status: Todo['status']
+  ): Observable<Todo>
 }
