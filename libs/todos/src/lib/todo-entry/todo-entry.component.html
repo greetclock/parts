@@ -1,4 +1,7 @@
 <div class="flex mb-2">
-  <parts-checkbox></parts-checkbox>
+  <parts-checkbox
+    [isChecked]="todo.status === 'done'"
+    (checked)="checked($event)"
+  ></parts-checkbox>
   <span class="-mt-px">{{ todo.title }}</span>
 </div>

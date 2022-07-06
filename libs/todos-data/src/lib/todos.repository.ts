@@ -3,15 +3,16 @@ import { createStore, withProps } from '@ngneat/elf'
 import {
   addEntities,
   deleteEntities,
+  getEntity,
   selectAllEntities,
+  selectEntity,
   setEntities,
   updateEntities,
   updateEntitiesIds,
   withEntities,
-  selectEntity,
-  getEntity,
 } from '@ngneat/elf-entities'
 import { withRequestsCache, withRequestsStatus } from '@ngneat/elf-requests'
+import { map, Observable } from 'rxjs'
 import { Todo } from './types'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -49,7 +50,7 @@ export class TodosRepository {
     store.update(deleteEntities(uuid))
   }
 
-  getTodo(uuid: Todo['uuid']): Todo | null {
+  queryTodo(uuid: Todo['uuid']): Todo | null {
     return store.query(getEntity(uuid)) ?? null
   }
 }

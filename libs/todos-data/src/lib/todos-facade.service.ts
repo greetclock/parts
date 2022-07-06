@@ -40,6 +40,10 @@ export class TodosFacadeService {
     uuid: Todo['uuid'],
     status: Todo['status']
   ): Observable<Todo> {
-    return this.todosData.updateTodoStatus(uuid, status)
+    const todo$ = this.todosData.updateTodoStatus(uuid, status)
+
+    todo$.subscribe()
+
+    return todo$
   }
 }

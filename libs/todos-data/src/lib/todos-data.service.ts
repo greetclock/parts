@@ -42,8 +42,8 @@ export class TodosDataService {
   }
 
   updateTodoStatus(todoUuid: string, status: Todo['status']): Observable<Todo> {
-    const todo = this.todosRepo.getTodo(todoUuid)
-    const previousTodoStatus: Todo['status'] | null = todo?.status ?? null
+    const todo = this.todosRepo.queryTodo(todoUuid)
+    const previousTodoStatus: Todo['status'] = todo?.status ?? 'pending'
 
     if (todo) {
       this.todosRepo.updateTodo(todoUuid, { status })
@@ -54,9 +54,7 @@ export class TodosDataService {
         this.todosRepo.updateTodo(todo.uuid, todo)
       }),
       catchError((error) => {
-        if (previousTodoStatus) {
-          this.todosRepo.updateTodo(todoUuid, { status: previousTodoStatus })
-        }
+        this.todosRepo.updateTodo(todoUuid, { status: previousTodoStatus })
 
         return throwError(() => error)
       })
