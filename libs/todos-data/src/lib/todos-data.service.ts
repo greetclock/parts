@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
 import { catchError, Observable, tap, throwError } from 'rxjs'
-import { v4 as getUuid } from 'uuid'
 import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
 import { TodosRepository } from './todos.repository'
 import { Todo } from './types'
@@ -37,6 +36,28 @@ export class TodosDataService {
       }),
       catchError((error) => {
         this.todosRepo.deleteTodo(tempUuid)
+        return throwError(() => error)
+      })
+    )
+  }
+
+  updateTodoStatus(todoUuid: string, status: Todo['status']): Observable<Todo> {
+    const todo = this.todosRepo.getTodo(todoUuid)
+    const previousTodoStatus: Todo['status'] | null = todo?.status ?? null
+
+    if (todo) {
+      this.todosRepo.updateTodo(todoUuid, { status })
+    }
+
+    return this.todosAdapter.updateTodoStatus(todoUuid, status).pipe(
+      tap((todo) => {
+        this.todosRepo.updateTodo(todo.uuid, todo)
+      }),
+      catchError((error) => {
+        if (previousTodoStatus) {
+          this.todosRepo.updateTodo(todoUuid, { status: previousTodoStatus })
+        }
+
         return throwError(() => error)
       })
     )

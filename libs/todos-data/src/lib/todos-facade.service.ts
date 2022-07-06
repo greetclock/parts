@@ -20,7 +20,7 @@ export class TodosFacadeService {
     return this.todosData.getTodos()
   }
 
-  getTodoByUuid(uuid: string): Observable<Todo | null> {
+  getTodoByUuid(uuid: Todo['uuid']): Observable<Todo | null> {
     return this.todosAdapter.getTodoByUuid(uuid)
   }
 
@@ -28,11 +28,18 @@ export class TodosFacadeService {
     return this.todosData.createTodo(data)
   }
 
-  deleteTodo(uuid: string): Observable<void> {
+  deleteTodo(uuid: Todo['uuid']): Observable<void> {
     return this.todosAdapter.deleteTodo(uuid)
   }
 
   updateTodo(todo: Todo): Observable<Todo> {
     return this.todosAdapter.updateTodo(todo)
+  }
+
+  updateTodoStatus(
+    uuid: Todo['uuid'],
+    status: Todo['status']
+  ): Observable<Todo> {
+    return this.todosData.updateTodoStatus(uuid, status)
   }
 }

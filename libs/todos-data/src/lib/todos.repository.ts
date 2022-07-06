@@ -8,6 +8,8 @@ import {
   updateEntities,
   updateEntitiesIds,
   withEntities,
+  selectEntity,
+  getEntity,
 } from '@ngneat/elf-entities'
 import { withRequestsCache, withRequestsStatus } from '@ngneat/elf-requests'
 import { Todo } from './types'
@@ -45,5 +47,9 @@ export class TodosRepository {
 
   deleteTodo(uuid: Todo['uuid']) {
     store.update(deleteEntities(uuid))
+  }
+
+  getTodo(uuid: Todo['uuid']): Todo | null {
+    return store.query(getEntity(uuid)) ?? null
   }
 }
