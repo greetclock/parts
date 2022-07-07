@@ -1,14 +1,15 @@
 import { fakeAsync, tick } from '@angular/core/testing'
 import {
+  byTestId,
   createComponentFactory,
   mockProvider,
   Spectator,
-  byTestId,
 } from '@ngneat/spectator/jest'
 import { mockObservable } from '@parts/test-helpers'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
-import { EMPTY, Subject } from 'rxjs'
+import { EMPTY } from 'rxjs'
 import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
+import { ViewTodoEntryComponent } from '../view-todo-entry/view-todo-entry.component'
 import { TodoEntryComponent } from './todo-entry.component'
 
 describe('TodoEntryComponent', () => {
@@ -35,6 +36,7 @@ describe('TodoEntryComponent', () => {
         },
       }),
     ],
+    declarations: [ViewTodoEntryComponent],
   })
 
   let todo: Todo
@@ -67,7 +69,7 @@ describe('TodoEntryComponent', () => {
       },
     })
 
-    spectator.component.checked(true)
+    spectator.component.onChecked(true)
 
     expect(
       spectator.inject(TodosFacadeService).updateTodoStatus
@@ -97,7 +99,7 @@ describe('TodoEntryComponent', () => {
         },
       })
 
-      spectator.component.save()
+      spectator.component.onSave()
 
       expect(
         spectator.inject(TodosMainUiStateService).collapseEntry
@@ -111,33 +113,11 @@ describe('TodoEntryComponent', () => {
         },
       })
 
-      spectator.component.save()
+      spectator.component.onSave()
 
       expect(
         spectator.inject(TodosFacadeService).updateTodo
       ).toHaveBeenCalledWith(todo)
-    })
-  })
-
-  describe('click outside', () => {
-    function getOutsideClickSubject(): Subject<void> {
-      return (spectator.component as any).outsideClicks$
-    }
-
-    it('should save component on the outside click', () => {
-      spectator = createComponent({
-        props: {
-          todo,
-        },
-      })
-
-      spectator.component.save = jest.fn().mockReturnValue(EMPTY)
-
-      const outsideClick$ = getOutsideClickSubject()
-
-      outsideClick$.next()
-
-      expect(spectator.component.save).toHaveBeenCalled()
     })
   })
 })

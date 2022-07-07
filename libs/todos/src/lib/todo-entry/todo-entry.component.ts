@@ -1,15 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core'
+import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
-import { map, mergeMap, Observable, Subject, takeUntil } from 'rxjs'
+import { map, Subject, takeUntil } from 'rxjs'
 import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
-import { contains } from '../utils/utils'
+import { ViewTodo } from '../view-todo-entry/view-todo-entry.component'
 
 @Component({
   selector: 'parts-todo-entry',
@@ -19,78 +12,44 @@ import { contains } from '../utils/utils'
 export class TodoEntryComponent implements OnInit, OnDestroy {
   @Input() todo!: Todo
 
-  isExpanded$: Observable<boolean> = this.uiState.state
-    .select('expandedEntry')
-    .pipe(map((expandedUuid) => this.todo.uuid === expandedUuid))
-
-  isCollapsed$ = this.isExpanded$.pipe(map((it) => !it))
+  protected isExpanded = false
 
   private destroy$ = new Subject<void>()
-  private outsideClicks$ = new Subject<void>()
 
   constructor(
     private todosFacade: TodosFacadeService,
-    private uiState: TodosMainUiStateService,
-    private elementRef: ElementRef
+    private uiState: TodosMainUiStateService
   ) {}
 
   ngOnInit(): void {
     this.validateInputs()
-    this.watchOutsideClicks()
+    this.watchIsExpanded()
   }
 
   ngOnDestroy(): void {
     this.destroy$.next()
     this.destroy$.complete()
-
-    this.outsideClicks$.complete()
   }
 
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: Event) {
-    if (!event) {
-      return
-    }
-
-    const isExpanded =
-      this.todo.uuid === this.uiState.state.get('expandedEntry')
-
-    if (
-      !contains(this.elementRef.nativeElement, event.target as HTMLElement) &&
-      isExpanded
-    ) {
-      this.outsideClicks$.next()
-    }
-  }
-
-  expand() {
-    // setTimeout do delay execusion of the inner statement after
-    // clickOutside handler is called. Otherwise the entry is expanded,
-    // then clickOutside() is called and the entry instantly collapses back.
-    setTimeout(() => {
-      this.uiState.expandEntry(this.todo.uuid)
-    })
-  }
-
-  checked(isChecked: boolean) {
+  onChecked(isChecked: boolean) {
     this.todosFacade.updateTodoStatus(
       this.todo.uuid,
       this.getTodoStatus(isChecked)
     )
   }
 
-  save() {
-    this.uiState.collapseEntry(this.todo.uuid)
-    return this.todosFacade.updateTodo(this.todo)
+  onSave(todo: ViewTodo) {
+    const updatedTodo: Todo = {
+      ...this.todo,
+      ...todo,
+    }
+
+    this.uiState.collapseEntry(updatedTodo.uuid)
+    return this.todosFacade.updateTodo(updatedTodo)
   }
 
-  private watchOutsideClicks() {
-    this.outsideClicks$
-      .pipe(
-        mergeMap(() => this.save()),
-        takeUntil(this.destroy$)
-      )
-      .subscribe()
+  onExpand() {
+    this.uiState.expandEntry(this.todo.uuid)
   }
 
   private validateInputs() {
@@ -101,5 +60,15 @@ export class TodoEntryComponent implements OnInit, OnDestroy {
 
   private getTodoStatus(checked: boolean): Todo['status'] {
     return checked ? 'done' : 'pending'
+  }
+
+  private watchIsExpanded() {
+    this.uiState.state
+      .select('expandedEntry')
+      .pipe(
+        map((expandedUuid) => this.todo.uuid === expandedUuid),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((isExpanded) => (this.isExpanded = isExpanded))
   }
 }
