@@ -32,4 +32,8 @@ export class ApiTodosAdapterService extends TodosAdapterService {
   updateTodo(todo: Todo): Observable<Todo> {
     return throwError('Not Implemented')
   }
+
+  updateTodoStatus(uuid: string, status: 'pending' | 'done'): Observable<Todo> {
+    return throwError('Not Implemented')
+  }
 }

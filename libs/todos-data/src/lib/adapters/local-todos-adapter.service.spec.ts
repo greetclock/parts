@@ -49,6 +49,7 @@ describe('LocalTodosAdapterService', () => {
       const todo: Todo = {
         uuid: getUuid(),
         title: 'Buy Milk',
+        status: 'pending',
       }
 
       setData({
@@ -74,6 +75,7 @@ describe('LocalTodosAdapterService', () => {
       const todo: Todo = {
         uuid: getUuid(),
         title: 'Buy Milk',
+        status: 'pending',
       }
 
       setData({
@@ -92,11 +94,13 @@ describe('LocalTodosAdapterService', () => {
       const todo1: Todo = {
         uuid: getUuid(),
         title: 'Buy Milk',
+        status: 'pending',
       }
 
       const todo2: Todo = {
         uuid: getUuid(),
         title: 'Code',
+        status: 'pending',
       }
 
       setData({
@@ -115,6 +119,7 @@ describe('LocalTodosAdapterService', () => {
       const todo: Todo = {
         uuid: getUuid(),
         title: 'Buy Milk',
+        status: 'pending',
       }
 
       setData({
@@ -141,6 +146,7 @@ describe('LocalTodosAdapterService', () => {
       const todo: Todo = {
         uuid: getUuid(),
         title: 'Buy Milk',
+        status: 'pending',
       }
 
       spectator.service.updateTodo(todo).subscribe({
@@ -149,6 +155,38 @@ describe('LocalTodosAdapterService', () => {
           done()
         },
       })
+    })
+  })
+
+  describe('updateTodoStatus()', () => {
+    it('should update todo status', (done) => {
+      const todo: Todo = {
+        uuid: getUuid(),
+        title: 'Buy Milk',
+        status: 'pending',
+      }
+
+      setData({
+        todos: [todo],
+      })
+
+      spectator.service
+        .updateTodoStatus(todo.uuid, 'done')
+        .subscribe((todo) => {
+          const updatedTodo: Todo = {
+            ...todo,
+            status: 'done',
+          }
+
+          expect(todo).toEqual(updatedTodo)
+
+          const data = getData()
+          expect(data.todos.find((it) => it.uuid === todo.uuid)).toEqual(
+            updatedTodo
+          )
+
+          done()
+        })
     })
   })
 })

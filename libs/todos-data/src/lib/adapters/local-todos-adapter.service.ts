@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { delay, Observable } from 'rxjs'
+import { delay, mergeMap, Observable, of, throwError } from 'rxjs'
 import { v4 as getUuid } from 'uuid'
 import {
   CreateTodoDto,
@@ -26,8 +26,9 @@ export class LocalTodosAdapterService extends TodosAdapterService {
     return new Observable<Todo>((subscriber) => {
       const uuid = getUuid()
 
-      const todo = {
+      const todo: Todo = {
         uuid,
+        status: 'pending',
         ...createTodo,
       }
 
@@ -79,23 +80,51 @@ export class LocalTodosAdapterService extends TodosAdapterService {
 
   updateTodo(todo: Todo): Observable<Todo> {
     return new Observable<Todo>((subscriber) => {
-      const data = this.getData()
-
-      const savedTodo = data.todos.find((it) => it.uuid === todo.uuid)
-      if (!savedTodo) {
-        subscriber.error(new TodoNotFoundError())
+      try {
+        this.updateTodoInStorage(todo)
+      } catch (err: unknown) {
+        subscriber.error(err)
         return
       }
-
-      const todoIndex = data.todos.indexOf(savedTodo)
-
-      data.todos[todoIndex] = todo
-
-      this.saveData(data)
 
       subscriber.next(todo)
       subscriber.complete()
     }).pipe(delay(DELAY_MS))
+  }
+
+  updateTodoStatus(uuid: string, status: 'pending' | 'done'): Observable<Todo> {
+    return this.getTodoByUuid(uuid).pipe(
+      mergeMap((todo) => {
+        const todoNotFoundError$ = throwError(() => new TodoNotFoundError())
+        if (!todo) {
+          return todoNotFoundError$
+        }
+
+        todo.status = status
+
+        try {
+          this.updateTodoInStorage(todo)
+          return of(todo)
+        } catch (err: unknown) {
+          return throwError(() => err)
+        }
+      })
+    )
+  }
+
+  private updateTodoInStorage(todo: Todo) {
+    const data = this.getData()
+
+    const savedTodo = data.todos.find((it) => it.uuid === todo.uuid)
+    if (!savedTodo) {
+      throw new TodoNotFoundError()
+    }
+
+    const todoIndex = data.todos.indexOf(savedTodo)
+
+    data.todos[todoIndex] = todo
+
+    this.saveData(data)
   }
 
   private getData(): LocalStorageData {

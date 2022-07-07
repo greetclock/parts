@@ -1,4 +1,3 @@
-import { fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import {
   createComponentFactory,
   mockProvider,
@@ -34,7 +33,10 @@ describe('NewTodoComponent', () => {
     spectator.component.description = 'And eggs'
 
     spectator.component.createTodo.subscribe((data) => {
-      expect(data).toEqual({ title: 'Buy Milk', description: 'And eggs' })
+      expect(data).toEqual({
+        title: 'Buy Milk',
+        description: 'And eggs',
+      })
       done()
     })
 

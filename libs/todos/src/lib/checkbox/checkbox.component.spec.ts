@@ -7,8 +7,16 @@ describe('CheckboxComponent', () => {
   const createComponent = createComponentFactory(CheckboxComponent)
 
   it('should create', () => {
-    spectator = createComponent()
+    spectator = createComponent({
+      props: {
+        isChecked: false,
+      },
+    })
 
     expect(spectator.component).toBeTruthy()
+  })
+
+  it('should throw error if props are not provided', () => {
+    expect(() => createComponent()).toThrow()
   })
 })
