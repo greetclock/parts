@@ -7,9 +7,10 @@
     ></parts-checkbox>
     <span
       class="-mt-px cursor-pointer"
+      [class.text-gray-400]="!todo.title"
       (click)="onExpand()"
       data-testid="title"
-      >{{ todo.title }}</span
+      >{{ todo.title || 'New To-Do' }}</span
     >
     <svg
       *ngIf="todo.description"
