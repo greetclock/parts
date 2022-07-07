@@ -121,6 +121,7 @@ describe('TodosDataService', () => {
 
     it('should delete todo in the repo in case if backend returns an error', () => {
       spectator.inject(TodosAdapterService).castToWritable().createTodo =
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         mockObservable(() => throwError(() => new Error())) as any
 
       const todo: CreateTodoDto = {
@@ -140,6 +141,7 @@ describe('TodosDataService', () => {
       const error = new Error()
 
       spectator.inject(TodosAdapterService).castToWritable().createTodo =
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         mockObservable(() => throwError(() => error)) as any
 
       const todo: CreateTodoDto = {

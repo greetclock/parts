@@ -1,7 +1,7 @@
-<div class="flex mb-2">
-  <parts-checkbox
-    [isChecked]="todo.status === 'done'"
-    (checked)="checked($event)"
-  ></parts-checkbox>
-  <span class="-mt-px">{{ todo.title }}</span>
-</div>
+<parts-view-todo-entry
+  [todo]="todo"
+  [isExpanded]="isExpanded"
+  (checked)="onChecked($event)"
+  (expand)="onExpand()"
+  (save)="onSave($event)"
+></parts-view-todo-entry>

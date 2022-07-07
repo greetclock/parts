@@ -5,14 +5,12 @@ import {
   deleteEntities,
   getEntity,
   selectAllEntities,
-  selectEntity,
   setEntities,
   updateEntities,
   updateEntitiesIds,
   withEntities,
 } from '@ngneat/elf-entities'
 import { withRequestsCache, withRequestsStatus } from '@ngneat/elf-requests'
-import { map, Observable } from 'rxjs'
 import { Todo } from './types'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

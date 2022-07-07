@@ -16,6 +16,8 @@ export const DELAY_MS = 500
 
 @Injectable()
 export class LocalTodosAdapterService extends TodosAdapterService {
+  private probabilityOfFailure = 0
+
   constructor() {
     super()
 
@@ -32,7 +34,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         ...createTodo,
       }
 
-      if (Math.random() > 0.9) {
+      if (Math.random() < this.probabilityOfFailure) {
         setTimeout(() => {
           const error = new Error('Unknown error')
           console.warn(error)
@@ -112,6 +114,10 @@ export class LocalTodosAdapterService extends TodosAdapterService {
     )
   }
 
+  setProbilityOfFailure(probability: number) {
+    this.probabilityOfFailure = probability
+  }
+
   private updateTodoInStorage(todo: Todo) {
     const data = this.getData()
 
@@ -143,6 +149,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
   }
 
   private enableConsoleCommands() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(window as any).clearTodos = () => {
       localStorage.removeItem('todos')
       window.location.reload()

@@ -15,7 +15,4 @@
   *ngFor="let todo of todosFacade.todos$ | async"
   [todo]="todo"
 ></parts-todo-entry>
-<parts-new-todo
-  *ngIf="addingNew$ | async"
-  (createTodo)="createTodo($event)"
-></parts-new-todo>
+<parts-new-todo *ngIf="addingNew$ | async"></parts-new-todo>

@@ -1,28 +1,21 @@
 import { Component } from '@angular/core'
 import { RxState } from '@rx-angular/state'
-
-export interface TodosMainComponentState {
-  addingNew: boolean
-}
+import { combineLatest, map, Observable } from 'rxjs'
+import { TodosMainUiStateService } from './todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-todos-main',
   templateUrl: './todos-main.component.html',
   styleUrls: ['./todos-main.component.css'],
-  providers: [RxState],
+  providers: [TodosMainUiStateService, RxState],
 })
 export class TodosMainComponent {
-  addingNew$ = this.state.select('addingNew')
+  isTodoExpanded$: Observable<boolean> = combineLatest([
+    this.state.state.select('addingNew'),
+    this.state.state.select('expandedEntry'),
+  ]).pipe(
+    map(([addingNew, expandedEntry]) => addingNew || expandedEntry !== null)
+  )
 
-  constructor(public state: RxState<TodosMainComponentState>) {
-    this.initializeComponentState()
-  }
-
-  private initializeComponentState() {
-    const initialState: TodosMainComponentState = {
-      addingNew: false,
-    }
-
-    this.state.set(initialState)
-  }
+  constructor(private state: TodosMainUiStateService) {}
 }
