@@ -33,7 +33,11 @@ export class TodosFacadeService {
   }
 
   updateTodo(todo: Todo): Observable<Todo> {
-    return this.todosAdapter.updateTodo(todo)
+    const todo$ = this.todosAdapter.updateTodo(todo)
+
+    todo$.subscribe()
+
+    return todo$
   }
 
   updateTodoStatus(

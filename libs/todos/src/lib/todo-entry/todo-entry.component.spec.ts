@@ -1,3 +1,4 @@
+import { fakeAsync, tick } from '@angular/core/testing'
 import {
   createComponentFactory,
   mockProvider,
@@ -72,7 +73,7 @@ describe('TodoEntryComponent', () => {
     ).toHaveBeenCalledWith('uuid1', 'done')
   })
 
-  it('should expand entry on click', () => {
+  it('should expand entry on click', fakeAsync(() => {
     spectator = createComponent({
       props: {
         todo: {
@@ -84,9 +85,10 @@ describe('TodoEntryComponent', () => {
     })
 
     spectator.click(byTestId('title'))
+    tick()
 
     expect(
       spectator.inject(TodosMainUiStateService).expandEntry
     ).toHaveBeenCalledWith('uuid1')
-  })
+  }))
 })
