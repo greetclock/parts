@@ -1,4 +1,4 @@
-<div class="h-screen" [class.bg-gray-50]="addingNew$ | async">
+<div class="h-screen" [class.bg-gray-50]="isTodoExpanded$ | async">
   <div class="flex justify-center">
     <div class="flex-auto max-w-5xl px-10">
       <router-outlet></router-outlet>
