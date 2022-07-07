@@ -33,7 +33,6 @@ describe('LocalTodosAdapterService', () => {
     it('should create entry in the localStorage', fakeAsync(() => {
       const todo: CreateTodoDto = {
         title: 'Buy Milk',
-        status: 'pending',
       }
 
       spectator.service.createTodo(todo).subscribe()

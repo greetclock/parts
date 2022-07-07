@@ -39,10 +39,12 @@ describe('TodosFacadeService', () => {
         {
           uuid: 'uuid1',
           title: 'Buy milk',
+          status: 'pending',
         },
         {
           uuid: 'uuid2',
           title: 'Code things',
+          status: 'pending',
         },
       ]
 
@@ -60,6 +62,7 @@ describe('TodosFacadeService', () => {
       todoByUuid = {
         uuid: 'uuid1',
         title: 'Buy milk',
+        status: 'pending',
       }
 
       spectator = createService()
@@ -105,6 +108,7 @@ describe('TodosFacadeService', () => {
 
       const todo: Todo = {
         uuid: 'uuid1',
+        status: 'pending',
         title: 'Buy Milk',
       }
 

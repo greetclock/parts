@@ -55,6 +55,7 @@ describe('TodosDataService', () => {
         {
           uuid: '1',
           title: 'Buy Milk',
+          status: 'pending',
         },
       ]
 
@@ -90,6 +91,7 @@ describe('TodosDataService', () => {
 
       expect(spectator.inject(TodosRepository).addTodo).toHaveBeenCalledWith({
         uuid: generatedUuid,
+        status: 'pending',
         ...todo,
       })
     })
