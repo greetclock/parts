@@ -1,12 +1,15 @@
-<ng-container *ngIf="!isExpanded">
-  <div class="flex mb-2">
+<ng-container *ngIf="isCollapsed$ | async">
+  <div class="flex my-2">
     <parts-checkbox
       [isChecked]="todo.status === 'done'"
       (checked)="checked($event)"
     ></parts-checkbox>
-    <span class="-mt-px cursor-pointer" (click)="expand.next()">{{
-      todo.title
-    }}</span>
+    <span
+      class="-mt-px cursor-pointer"
+      (click)="expand()"
+      data-testid="title"
+      >{{ todo.title }}</span
+    >
     <svg
       *ngIf="todo.description"
       xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +28,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="isExpanded">
+<ng-container *ngIf="isExpanded$ | async">
   <div class="w-full bg-white h-40 py-5 px-4 flex drop-shadow-md rounded-lg">
     <parts-checkbox [isChecked]="todo.status === 'done'"></parts-checkbox>
     <div class="w-full">

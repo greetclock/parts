@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
+import { map, Observable } from 'rxjs'
+import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-todo-entry',
@@ -8,11 +10,17 @@ import { Todo, TodosFacadeService } from '@parts/todos/data'
 })
 export class TodoEntryComponent implements OnInit {
   @Input() todo!: Todo
-  @Output() expand = new EventEmitter<void>()
 
-  isExpanded = true
+  isExpanded$: Observable<boolean> = this.uiState.state
+    .select('expandedEntry')
+    .pipe(map((expandedUuid) => this.todo.uuid === expandedUuid))
 
-  constructor(private todosFacade: TodosFacadeService) {}
+  isCollapsed$ = this.isExpanded$.pipe(map((it) => !it))
+
+  constructor(
+    private todosFacade: TodosFacadeService,
+    private uiState: TodosMainUiStateService
+  ) {}
 
   ngOnInit(): void {
     this.validateInputs()
@@ -27,6 +35,10 @@ export class TodoEntryComponent implements OnInit {
 
   save() {
     console.log('save')
+  }
+
+  expand() {
+    this.uiState.expandEntry(this.todo.uuid)
   }
 
   private validateInputs() {
