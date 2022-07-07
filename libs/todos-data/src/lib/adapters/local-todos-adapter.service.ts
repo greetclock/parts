@@ -32,7 +32,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         ...createTodo,
       }
 
-      if (Math.random() > 0.9) {
+      if (Math.random() > 1) {
         setTimeout(() => {
           const error = new Error('Unknown error')
           console.warn(error)

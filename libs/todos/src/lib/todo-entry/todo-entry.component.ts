@@ -10,6 +10,8 @@ export class TodoEntryComponent implements OnInit {
   @Input() todo!: Todo
   @Output() expand = new EventEmitter<void>()
 
+  isExpanded = true
+
   constructor(private todosFacade: TodosFacadeService) {}
 
   ngOnInit(): void {
@@ -21,6 +23,10 @@ export class TodoEntryComponent implements OnInit {
       this.todo.uuid,
       this.getTodoStatus(isChecked)
     )
+  }
+
+  save() {
+    console.log('save')
   }
 
   private validateInputs() {
