@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
 
 @Component({
@@ -8,6 +8,7 @@ import { Todo, TodosFacadeService } from '@parts/todos/data'
 })
 export class TodoEntryComponent implements OnInit {
   @Input() todo!: Todo
+  @Output() expand = new EventEmitter<void>()
 
   constructor(private todosFacade: TodosFacadeService) {}
 
