@@ -1,28 +1,15 @@
 import { Component } from '@angular/core'
 import { RxState } from '@rx-angular/state'
-
-export interface TodosMainComponentState {
-  addingNew: boolean
-}
+import { TodosMainUiStateService } from './todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-todos-main',
   templateUrl: './todos-main.component.html',
   styleUrls: ['./todos-main.component.css'],
-  providers: [RxState],
+  providers: [TodosMainUiStateService, RxState],
 })
 export class TodosMainComponent {
-  addingNew$ = this.state.select('addingNew')
+  addingNew$ = this.state.state.select('addingNew')
 
-  constructor(public state: RxState<TodosMainComponentState>) {
-    this.initializeComponentState()
-  }
-
-  private initializeComponentState() {
-    const initialState: TodosMainComponentState = {
-      addingNew: false,
-    }
-
-    this.state.set(initialState)
-  }
+  constructor(private state: TodosMainUiStateService) {}
 }

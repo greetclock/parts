@@ -1,17 +1,18 @@
 import {
+  byTestId,
   createComponentFactory,
   mockProvider,
   Spectator,
-  byTestId,
 } from '@ngneat/spectator/jest'
-import { ControlsComponent } from './controls.component'
 import { RxState } from '@rx-angular/state'
+import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
+import { ControlsComponent } from './controls.component'
 
 describe('ControlsComponent', () => {
   let spectator: Spectator<ControlsComponent>
   const createComponent = createComponentFactory({
     component: ControlsComponent,
-    providers: [mockProvider(RxState)],
+    providers: [mockProvider(RxState), TodosMainUiStateService],
   })
 
   it('should create', () => {

@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { CreateTodoDto, Todo, TodosFacadeService } from '@parts/todos/data'
-import { RxState } from '@rx-angular/state'
 import { Subject, takeUntil } from 'rxjs'
-import { TodosMainComponentState } from '../todos-main/todos-main.component'
+import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-today',
@@ -10,12 +9,12 @@ import { TodosMainComponentState } from '../todos-main/todos-main.component'
   styleUrls: ['./today.component.css'],
 })
 export class TodayComponent implements OnInit, OnDestroy {
-  addingNew$ = this.state.select('addingNew')
+  addingNew$ = this.uiState.state.select('addingNew')
 
   private destroy$ = new Subject<void>()
 
   constructor(
-    private state: RxState<TodosMainComponentState>,
+    private uiState: TodosMainUiStateService,
     public todosFacade: TodosFacadeService
   ) {}
 
@@ -46,8 +45,6 @@ export class TodayComponent implements OnInit, OnDestroy {
   }
 
   private disableAddingNew() {
-    this.state.set({
-      addingNew: false,
-    })
+    this.uiState.setAddingNew(false)
   }
 }

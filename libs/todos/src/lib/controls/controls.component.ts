@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
-import { RxState } from '@rx-angular/state'
-import { TodosMainComponentState } from '../todos-main/todos-main.component'
+import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-controls',
@@ -8,11 +7,9 @@ import { TodosMainComponentState } from '../todos-main/todos-main.component'
   styleUrls: ['./controls.component.css'],
 })
 export class ControlsComponent {
-  constructor(private state: RxState<TodosMainComponentState>) {}
+  constructor(private uiState: TodosMainUiStateService) {}
 
   addNew() {
-    this.state.set({
-      addingNew: true,
-    })
+    this.uiState.setAddingNew(true)
   }
 }

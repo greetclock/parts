@@ -8,9 +8,8 @@ import {
   Output,
 } from '@angular/core'
 import { CreateTodoDto } from '@parts/todos/data'
-import { RxState } from '@rx-angular/state'
 import { map, partition, skip, Subject, takeUntil } from 'rxjs'
-import { TodosMainComponentState } from '../todos-main/todos-main.component'
+import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-new-todo',
@@ -28,7 +27,7 @@ export class NewTodoComponent implements OnInit, OnDestroy {
   private outsideClicks$ = new Subject<void>()
 
   constructor(
-    private state: RxState<TodosMainComponentState>,
+    private uiState: TodosMainUiStateService,
     private elementRef: ElementRef
   ) {}
 
@@ -74,9 +73,7 @@ export class NewTodoComponent implements OnInit, OnDestroy {
   }
 
   private disableAddingNew() {
-    this.state.set({
-      addingNew: false,
-    })
+    this.uiState.setAddingNew(false)
   }
 
   private closingClicks$() {
