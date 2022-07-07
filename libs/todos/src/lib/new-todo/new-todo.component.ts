@@ -91,7 +91,6 @@ export class NewTodoComponent implements OnInit, OnDestroy {
     return {
       title: this.title,
       description: this.description,
-      status: 'pending',
     }
   }
 }

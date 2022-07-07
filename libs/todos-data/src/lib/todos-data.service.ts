@@ -26,6 +26,7 @@ export class TodosDataService {
 
     this.todosRepo.addTodo({
       uuid: tempUuid,
+      status: 'pending',
       ...todo,
     })
 

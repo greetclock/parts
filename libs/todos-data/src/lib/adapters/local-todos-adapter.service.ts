@@ -26,8 +26,9 @@ export class LocalTodosAdapterService extends TodosAdapterService {
     return new Observable<Todo>((subscriber) => {
       const uuid = getUuid()
 
-      const todo = {
+      const todo: Todo = {
         uuid,
+        status: 'pending',
         ...createTodo,
       }
 

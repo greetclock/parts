@@ -1,6 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
-import { Subject, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'parts-todo-entry',
