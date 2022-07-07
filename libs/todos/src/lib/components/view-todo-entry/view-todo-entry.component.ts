@@ -10,7 +10,7 @@ import {
 } from '@angular/core'
 import { Todo } from '@parts/todos/data'
 import { Subject, takeUntil } from 'rxjs'
-import { contains } from '../utils/utils'
+import { contains } from '../../utils/utils'
 
 export type ViewTodo = Omit<Todo, 'uuid'>
 

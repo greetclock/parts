@@ -6,7 +6,7 @@ import {
 import { mockObservable } from '@parts/test-helpers'
 import { TodosFacadeService } from '@parts/todos/data'
 import { RxState } from '@rx-angular/state'
-import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
+import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { NewTodoComponent } from './new-todo.component'
 
 describe('NewTodoComponent', () => {

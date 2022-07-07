@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
 import { map, Subject, takeUntil } from 'rxjs'
-import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
+import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { ViewTodo } from '../view-todo-entry/view-todo-entry.component'
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { RxState } from '@rx-angular/state'
 import { combineLatest, map, Observable } from 'rxjs'
-import { TodosMainUiStateService } from './todos-main-ui-state.service'
+import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-todos-main',
