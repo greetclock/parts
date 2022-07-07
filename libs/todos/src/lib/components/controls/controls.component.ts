@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
+import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-controls',

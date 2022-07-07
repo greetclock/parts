@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { TodosFacadeService } from '@parts/todos/data'
 import { Subject, takeUntil } from 'rxjs'
-import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
+import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 
 @Component({
   selector: 'parts-today',

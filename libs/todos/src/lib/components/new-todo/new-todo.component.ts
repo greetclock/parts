@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { CreateTodoDto, TodosFacadeService } from '@parts/todos/data'
-import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
+import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { ViewTodo } from '../view-todo-entry/view-todo-entry.component'
 
 @Component({

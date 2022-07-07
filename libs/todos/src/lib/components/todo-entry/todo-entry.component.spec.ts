@@ -8,7 +8,7 @@ import {
 import { mockObservable } from '@parts/test-helpers'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
 import { EMPTY } from 'rxjs'
-import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
+import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { ViewTodoEntryComponent } from '../view-todo-entry/view-todo-entry.component'
 import { TodoEntryComponent } from './todo-entry.component'
 
