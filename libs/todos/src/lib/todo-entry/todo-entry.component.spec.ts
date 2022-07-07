@@ -91,33 +91,37 @@ describe('TodoEntryComponent', () => {
     ).toHaveBeenCalledWith('uuid1')
   }))
 
-  describe('save()', () => {
-    it('should collapseEntry in the UI', () => {
+  describe('onSave()', () => {
+    it('should disable adding new state instantly', () => {
       spectator = createComponent({
         props: {
           todo,
         },
       })
 
-      spectator.component.onSave()
+      spectator.component.onSave({ title: 'Buy Eggs', status: 'done' })
 
       expect(
         spectator.inject(TodosMainUiStateService).collapseEntry
       ).toHaveBeenCalledWith(todo.uuid)
     })
 
-    it('should update todo using facade', () => {
+    it('should create todo in the facade', () => {
       spectator = createComponent({
         props: {
           todo,
         },
       })
 
-      spectator.component.onSave()
+      spectator.component.onSave({ title: 'Buy Eggs', status: 'done' })
 
       expect(
         spectator.inject(TodosFacadeService).updateTodo
-      ).toHaveBeenCalledWith(todo)
+      ).toHaveBeenCalledWith({
+        title: 'Buy Eggs',
+        status: 'done',
+        uuid: todo.uuid,
+      })
     })
   })
 })

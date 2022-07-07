@@ -35,26 +35,4 @@ describe('TodayComponent', () => {
 
     expect(spectator.inject(TodosFacadeService).getTodos).toHaveBeenCalled()
   })
-
-  describe('createTodo()', () => {
-    it('should disable adding new state instantly', () => {
-      spectator = createComponent()
-
-      spectator.component.createTodo({ title: 'Buy Milk' })
-
-      expect(spectator.inject(RxState).set).toHaveBeenCalledWith({
-        addingNew: false,
-      })
-    })
-
-    it('should create todo in the facade', () => {
-      spectator = createComponent()
-
-      spectator.component.createTodo({ title: 'Buy Milk' })
-
-      expect(
-        spectator.inject(TodosFacadeService).createTodo
-      ).toHaveBeenCalledWith({ title: 'Buy Milk' })
-    })
-  })
 })

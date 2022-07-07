@@ -1,3 +1,4 @@
+import { fakeAsync, tick } from '@angular/core/testing'
 import {
   byTestId,
   createComponentFactory,
@@ -21,13 +22,14 @@ describe('ControlsComponent', () => {
     expect(spectator.component).toBeTruthy()
   })
 
-  it('should set addingNew UI state when the add-new button is clicked', () => {
+  it('should set addingNew UI state when the add-new button is clicked', fakeAsync(() => {
     spectator = createComponent()
     spectator.click(byTestId('add-new'))
     spectator.detectChanges()
+    tick()
 
     expect(spectator.inject(RxState).set).toHaveBeenCalledWith({
       addingNew: true,
     })
-  })
+  }))
 })
