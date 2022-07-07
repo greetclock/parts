@@ -30,7 +30,10 @@
 
 <ng-container *ngIf="isExpanded$ | async">
   <div class="w-full bg-white h-40 py-5 px-4 flex drop-shadow-md rounded-lg">
-    <parts-checkbox [isChecked]="todo.status === 'done'"></parts-checkbox>
+    <parts-checkbox
+      [isChecked]="todo.status === 'done'"
+      (checked)="checked($event)"
+    ></parts-checkbox>
     <div class="w-full">
       <input
         type="text"
