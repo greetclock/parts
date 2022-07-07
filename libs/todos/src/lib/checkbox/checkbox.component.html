@@ -2,7 +2,9 @@
   <input
     type="checkbox"
     class="cursor-pointer"
+    [class.cursor-not-allowed]="!enable"
     [(ngModel)]="isChecked"
     (change)="checked.next(isChecked)"
+    [disabled]="!enable"
   />
 </div>

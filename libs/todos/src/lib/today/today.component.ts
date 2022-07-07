@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { CreateTodoDto, Todo, TodosFacadeService } from '@parts/todos/data'
+import { TodosFacadeService } from '@parts/todos/data'
 import { Subject, takeUntil } from 'rxjs'
 import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
 
@@ -27,24 +27,7 @@ export class TodayComponent implements OnInit, OnDestroy {
     this.destroy$.complete()
   }
 
-  createTodo(createTodoDto: CreateTodoDto) {
-    this.disableAddingNew()
-
-    this.todosFacade
-      .createTodo(createTodoDto)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe()
-  }
-
-  expandTodo(uuid: Todo['uuid']) {
-    console.log('expand', uuid)
-  }
-
   private requestTodos() {
     this.todosFacade.getTodos().pipe(takeUntil(this.destroy$)).subscribe()
-  }
-
-  private disableAddingNew() {
-    this.uiState.setAddingNew(false)
   }
 }

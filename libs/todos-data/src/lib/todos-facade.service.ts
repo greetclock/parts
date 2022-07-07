@@ -25,7 +25,11 @@ export class TodosFacadeService {
   }
 
   createTodo(data: CreateTodoDto): Observable<Todo> {
-    return this.todosData.createTodo(data)
+    const todo$ = this.todosData.createTodo(data)
+
+    todo$.subscribe()
+
+    return todo$
   }
 
   deleteTodo(uuid: Todo['uuid']): Observable<void> {

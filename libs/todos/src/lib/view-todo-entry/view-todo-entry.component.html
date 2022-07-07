@@ -3,6 +3,7 @@
     <parts-checkbox
       [isChecked]="todo.status === 'done'"
       (checked)="onChecked($event)"
+      [enable]="enableCheckbox"
     ></parts-checkbox>
     <span
       class="-mt-px cursor-pointer"
@@ -33,6 +34,7 @@
     <parts-checkbox
       [isChecked]="todo.status === 'done'"
       (checked)="onChecked($event)"
+      [enable]="enableCheckbox"
     ></parts-checkbox>
     <div class="w-full">
       <input
@@ -42,6 +44,7 @@
         (keydown.enter)="onSave()"
         (keydown.meta.enter)="onSave()"
         [(ngModel)]="todo.title"
+        partsAutofocus
       />
       <textarea
         placeholder="Notes"

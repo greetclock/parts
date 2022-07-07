@@ -22,6 +22,7 @@ export type ViewTodo = Omit<Todo, 'uuid'>
 export class ViewTodoEntryComponent implements OnInit, OnDestroy {
   @Input() todo!: ViewTodo
   @Input() isExpanded!: boolean
+  @Input() enableCheckbox = true
 
   @Output() checked = new EventEmitter<boolean>()
   @Output() expand = new EventEmitter<void>()

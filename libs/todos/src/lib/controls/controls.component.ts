@@ -10,6 +10,6 @@ export class ControlsComponent {
   constructor(private uiState: TodosMainUiStateService) {}
 
   addNew() {
-    this.uiState.setAddingNew(true)
+    setTimeout(() => this.uiState.setAddingNew(true))
   }
 }
