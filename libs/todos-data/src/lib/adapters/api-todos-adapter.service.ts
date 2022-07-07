@@ -17,10 +17,12 @@ export class ApiTodosAdapterService extends TodosAdapterService {
     return this.http.post<Todo>(`${this.functionsUrl}/todos`, createTodo)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   deleteTodo(uuid: string): Observable<void> {
     return throwError('Not Implemented')
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getTodoByUuid(uuid: string): Observable<Todo | null> {
     return throwError('Not Implemented')
   }
@@ -29,10 +31,12 @@ export class ApiTodosAdapterService extends TodosAdapterService {
     return this.http.get<Todo[]>(`${this.functionsUrl}/todos`)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateTodo(todo: Todo): Observable<Todo> {
     return throwError('Not Implemented')
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateTodoStatus(uuid: string, status: 'pending' | 'done'): Observable<Todo> {
     return throwError('Not Implemented')
   }

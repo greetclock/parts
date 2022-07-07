@@ -16,10 +16,12 @@ describe('LocalTodosAdapterService', () => {
   })
 
   function getData(): LocalStorageData {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return JSON.parse((localStorage as any).__STORE__.todos)
   }
 
   function setData(data: LocalStorageData) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(localStorage as any).__STORE__.todos = JSON.stringify(data)
   }
 
@@ -40,7 +42,9 @@ describe('LocalTodosAdapterService', () => {
 
       const data = getData()
 
-      expect(data.todos.find((it: any) => it.title === todo.title)).toBeTruthy()
+      expect(
+        data.todos.find((it: Todo) => it.title === todo.title)
+      ).toBeTruthy()
     }))
   })
 

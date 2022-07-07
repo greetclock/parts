@@ -143,6 +143,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
   }
 
   private enableConsoleCommands() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(window as any).clearTodos = () => {
       localStorage.removeItem('todos')
       window.location.reload()

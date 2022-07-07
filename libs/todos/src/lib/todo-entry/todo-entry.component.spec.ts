@@ -13,6 +13,7 @@ import { ViewTodoEntryComponent } from '../view-todo-entry/view-todo-entry.compo
 import { TodoEntryComponent } from './todo-entry.component'
 
 describe('TodoEntryComponent', () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectMock: (...args: any[]) => any = (selector) => {
     if (selector === 'expandedEntry') {
       return 'uuid2'
