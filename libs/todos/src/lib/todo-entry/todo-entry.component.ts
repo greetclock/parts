@@ -64,6 +64,9 @@ export class TodoEntryComponent implements OnInit, OnDestroy {
   }
 
   expand() {
+    // setTimeout do delay execusion of the inner statement after
+    // clickOutside handler is called. Otherwise the entry is expanded,
+    // then clickOutside() is called and the entry instantly collapses back.
     setTimeout(() => {
       this.uiState.expandEntry(this.todo.uuid)
     })

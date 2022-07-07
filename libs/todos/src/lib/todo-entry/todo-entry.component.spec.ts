@@ -6,8 +6,8 @@ import {
   byTestId,
 } from '@ngneat/spectator/jest'
 import { mockObservable } from '@parts/test-helpers'
-import { TodosFacadeService } from '@parts/todos/data'
-import { EMPTY } from 'rxjs'
+import { Todo, TodosFacadeService } from '@parts/todos/data'
+import { EMPTY, Subject } from 'rxjs'
 import { TodosMainUiStateService } from '../todos-main/todos-main-ui-state.service'
 import { TodoEntryComponent } from './todo-entry.component'
 
@@ -37,14 +37,19 @@ describe('TodoEntryComponent', () => {
     ],
   })
 
+  let todo: Todo
+  beforeEach(() => {
+    todo = {
+      uuid: 'uuid1',
+      title: 'Hello',
+      status: 'pending',
+    }
+  })
+
   it('should create', () => {
     spectator = createComponent({
       props: {
-        todo: {
-          uuid: 'uuid1',
-          title: 'Hello',
-          status: 'pending',
-        },
+        todo,
       },
     })
 
@@ -58,11 +63,7 @@ describe('TodoEntryComponent', () => {
   it('should send the updated status to the facade', () => {
     spectator = createComponent({
       props: {
-        todo: {
-          uuid: 'uuid1',
-          title: 'Hello',
-          status: 'pending',
-        },
+        todo,
       },
     })
 
@@ -76,11 +77,7 @@ describe('TodoEntryComponent', () => {
   it('should expand entry on click', fakeAsync(() => {
     spectator = createComponent({
       props: {
-        todo: {
-          uuid: 'uuid1',
-          title: 'Hello',
-          status: 'pending',
-        },
+        todo,
       },
     })
 
@@ -91,4 +88,56 @@ describe('TodoEntryComponent', () => {
       spectator.inject(TodosMainUiStateService).expandEntry
     ).toHaveBeenCalledWith('uuid1')
   }))
+
+  describe('save()', () => {
+    it('should collapseEntry in the UI', () => {
+      spectator = createComponent({
+        props: {
+          todo,
+        },
+      })
+
+      spectator.component.save()
+
+      expect(
+        spectator.inject(TodosMainUiStateService).collapseEntry
+      ).toHaveBeenCalledWith(todo.uuid)
+    })
+
+    it('should update todo using facade', () => {
+      spectator = createComponent({
+        props: {
+          todo,
+        },
+      })
+
+      spectator.component.save()
+
+      expect(
+        spectator.inject(TodosFacadeService).updateTodo
+      ).toHaveBeenCalledWith(todo)
+    })
+  })
+
+  describe('click outside', () => {
+    function getOutsideClickSubject(): Subject<void> {
+      return (spectator.component as any).outsideClicks$
+    }
+
+    it('should save component on the outside click', () => {
+      spectator = createComponent({
+        props: {
+          todo,
+        },
+      })
+
+      spectator.component.save = jest.fn().mockReturnValue(EMPTY)
+
+      const outsideClick$ = getOutsideClickSubject()
+
+      outsideClick$.next()
+
+      expect(spectator.component.save).toHaveBeenCalled()
+    })
+  })
 })
