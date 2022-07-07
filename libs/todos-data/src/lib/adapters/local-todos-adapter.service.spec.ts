@@ -25,7 +25,10 @@ describe('LocalTodosAdapterService', () => {
     ;(localStorage as any).__STORE__.todos = JSON.stringify(data)
   }
 
-  beforeEach(() => (spectator = createService()))
+  beforeEach(() => {
+    spectator = createService()
+    spectator.service.setProbilityOfFailure(0)
+  })
 
   it('should create', () => {
     expect(spectator.service).toBeTruthy()

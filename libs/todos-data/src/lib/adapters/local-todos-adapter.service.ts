@@ -16,6 +16,8 @@ export const DELAY_MS = 500
 
 @Injectable()
 export class LocalTodosAdapterService extends TodosAdapterService {
+  private probabilityOfFailure = 0
+
   constructor() {
     super()
 
@@ -32,7 +34,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         ...createTodo,
       }
 
-      if (Math.random() > 1) {
+      if (Math.random() < this.probabilityOfFailure) {
         setTimeout(() => {
           const error = new Error('Unknown error')
           console.warn(error)
@@ -110,6 +112,10 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         }
       })
     )
+  }
+
+  setProbilityOfFailure(probability: number) {
+    this.probabilityOfFailure = probability
   }
 
   private updateTodoInStorage(todo: Todo) {
