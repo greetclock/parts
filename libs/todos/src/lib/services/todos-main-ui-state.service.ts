@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Todo } from '@parts/todos/data'
 import { RxState } from '@rx-angular/state'
+import { combineLatest, map, Observable } from 'rxjs'
 
 export interface TodosMainUiState {
   addingNew: boolean
@@ -9,6 +10,13 @@ export interface TodosMainUiState {
 
 @Injectable()
 export class TodosMainUiStateService {
+  isTodoExpanded$: Observable<boolean> = combineLatest([
+    this.state.select('addingNew'),
+    this.state.select('expandedEntry'),
+  ]).pipe(
+    map(([addingNew, expandedEntry]) => addingNew || expandedEntry !== null)
+  )
+
   constructor(public state: RxState<TodosMainUiState>) {
     this.initializeUiState()
   }
