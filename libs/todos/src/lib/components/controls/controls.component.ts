@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { map, Observable } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 
 @Component({
@@ -7,9 +8,18 @@ import { TodosMainUiStateService } from '../../services/todos-main-ui-state.serv
   styleUrls: ['./controls.component.css'],
 })
 export class ControlsComponent {
+  enableCollapsedControls$: Observable<boolean> =
+    this.uiState.isTodoExpanded$.pipe(map((it) => !it))
+
+  enableExpandedControls$: Observable<boolean> = this.uiState.isTodoExpanded$
+
   constructor(private uiState: TodosMainUiStateService) {}
 
   addNew() {
-    setTimeout(() => this.uiState.setAddingNew(true))
+    this.uiState.setAddingNew(true)
+  }
+
+  onDelete() {
+    console.log('delete')
   }
 }

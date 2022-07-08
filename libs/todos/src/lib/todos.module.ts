@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { TodosDataModule } from '@parts/todos/data'
 import { CheckboxComponent } from './components/checkbox/checkbox.component'
+import { ControlButtonComponent } from './components/control-button/control-button.component'
 import { ControlsComponent } from './components/controls/controls.component'
 import { NewTodoComponent } from './components/new-todo/new-todo.component'
 import { TodoEntryComponent } from './components/todo-entry/todo-entry.component'
@@ -23,6 +24,7 @@ import { AutofocusDirective } from './utils/autofocus.directive'
     CheckboxComponent,
     AutofocusDirective,
     ViewTodoEntryComponent,
+    ControlButtonComponent,
   ],
 })
 export class TodosModule {}
