@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { TodosFacadeService } from '@parts/todos/data'
 import { map, Observable } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 
@@ -13,13 +14,22 @@ export class ControlsComponent {
 
   enableExpandedControls$: Observable<boolean> = this.uiState.isTodoExpanded$
 
-  constructor(private uiState: TodosMainUiStateService) {}
+  constructor(
+    private uiState: TodosMainUiStateService,
+    private todosFacade: TodosFacadeService
+  ) {}
 
   addNew() {
     this.uiState.setAddingNew(true)
   }
 
   onDelete() {
-    console.log('delete')
+    const expandedEntry = this.uiState.state.get('expandedEntry')
+
+    if (expandedEntry) {
+      this.todosFacade.deleteTodo(expandedEntry)
+    }
+
+    this.uiState.collapseAll()
   }
 }

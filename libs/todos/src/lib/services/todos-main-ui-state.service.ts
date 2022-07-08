@@ -44,6 +44,7 @@ export class TodosMainUiStateService {
   collapseAll() {
     this.state.set({
       expandedEntry: null,
+      addingNew: false,
     })
   }
 

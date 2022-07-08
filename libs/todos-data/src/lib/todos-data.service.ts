@@ -42,6 +42,20 @@ export class TodosDataService {
     )
   }
 
+  deleteTodo(todoUuid: Todo['uuid']): Observable<void> {
+    const todo = this.todosRepo.queryTodo(todoUuid)
+    this.todosRepo.deleteTodo(todoUuid)
+
+    return this.todosAdapter.deleteTodo(todoUuid).pipe(
+      catchError((error) => {
+        if (todo) {
+          this.todosRepo.addTodo(todo)
+        }
+        return throwError(() => error)
+      })
+    )
+  }
+
   updateTodoStatus(todoUuid: string, status: Todo['status']): Observable<Todo> {
     const todo = this.todosRepo.queryTodo(todoUuid)
     const previousTodoStatus: Todo['status'] = todo?.status ?? 'pending'

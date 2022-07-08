@@ -26,6 +26,7 @@ describe('TodosDataService', () => {
           uuid: backendGeneratedUuid,
           ...todo,
         })),
+        deleteTodo: mockObservable(() => void 0),
       }),
       mockProvider(TodosRepository),
       mockProvider(UuidGeneratorService, {
@@ -153,6 +154,49 @@ describe('TodosDataService', () => {
       spectator.service.createTodo(todo).subscribe({
         error: (err) => {
           expect(err).toEqual(error)
+          done()
+        },
+      })
+    })
+  })
+
+  describe('deleteTodo()', () => {
+    it('should delete todo (optimistically) right away', () => {
+      spectator.service.deleteTodo('uuid1')
+
+      expect(spectator.inject(TodosRepository).deleteTodo).toHaveBeenCalledWith(
+        'uuid1'
+      )
+    })
+
+    it('should make request to the adapter', () => {
+      spectator.service.deleteTodo('uuid1').subscribe()
+
+      expect(
+        spectator.inject(TodosAdapterService).deleteTodo
+      ).toHaveBeenCalledWith('uuid1')
+    })
+
+    it('should revert changes in the local store in case of error', (done) => {
+      spectator.inject(TodosAdapterService).castToWritable().deleteTodo =
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        mockObservable(() => throwError(() => new Error())) as any
+
+      const todo: Todo = {
+        uuid: 'uuid1',
+        title: 'Buy Milk',
+        status: 'pending',
+      }
+
+      spectator.inject(TodosRepository).castToWritable().queryTodo = jest
+        .fn()
+        .mockReturnValue(todo)
+
+      spectator.service.deleteTodo(todo.uuid).subscribe({
+        error: () => {
+          expect(
+            spectator.inject(TodosRepository).addTodo
+          ).toHaveBeenCalledWith(todo)
           done()
         },
       })
