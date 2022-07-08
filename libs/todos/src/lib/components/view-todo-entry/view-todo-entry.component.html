@@ -8,7 +8,7 @@
     <span
       class="-mt-px cursor-pointer"
       [class.text-gray-400]="!todo.title"
-      (click)="onExpand()"
+      (click)="onExpand($event)"
       data-testid="title"
       >{{ todo.title || 'New To-Do' }}</span
     >
