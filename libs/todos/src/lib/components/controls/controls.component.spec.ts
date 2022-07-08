@@ -1,11 +1,10 @@
-import { fakeAsync, tick } from '@angular/core/testing'
 import {
-  byTestId,
   createComponentFactory,
   mockProvider,
   Spectator,
 } from '@ngneat/spectator/jest'
-import { RxState } from '@rx-angular/state'
+import { TodosFacadeService } from '@parts/todos/data'
+import { EMPTY } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { ControlsComponent } from './controls.component'
 
@@ -13,7 +12,12 @@ describe('ControlsComponent', () => {
   let spectator: Spectator<ControlsComponent>
   const createComponent = createComponentFactory({
     component: ControlsComponent,
-    providers: [mockProvider(RxState), TodosMainUiStateService],
+    providers: [
+      mockProvider(TodosMainUiStateService, {
+        isTodoExpanded$: EMPTY,
+      }),
+      mockProvider(TodosFacadeService),
+    ],
   })
 
   it('should create', () => {
@@ -22,14 +26,13 @@ describe('ControlsComponent', () => {
     expect(spectator.component).toBeTruthy()
   })
 
-  it('should set addingNew UI state when the add-new button is clicked', fakeAsync(() => {
+  it('should set addingNew UI state when the add-new button is clicked', () => {
     spectator = createComponent()
-    spectator.click(byTestId('add-new'))
-    spectator.detectChanges()
-    tick()
 
-    expect(spectator.inject(RxState).set).toHaveBeenCalledWith({
-      addingNew: true,
-    })
-  }))
+    spectator.component.addNew()
+
+    expect(
+      spectator.inject(TodosMainUiStateService).setAddingNew
+    ).toHaveBeenCalledWith(true)
+  })
 })

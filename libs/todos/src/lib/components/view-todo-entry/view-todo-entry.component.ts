@@ -59,13 +59,13 @@ export class ViewTodoEntryComponent implements OnInit, OnDestroy {
     }
   }
 
-  onExpand() {
-    // setTimeout do delay execusion of the inner statement after
-    // clickOutside handler is called. Otherwise the entry is expanded,
+  onExpand(event: Event) {
+    // stopPropagation to ensure that the event isn't communicated to clickOutside() eventually
+    // Otherwise the entry is expanded,
     // then clickOutside() is called and the entry instantly collapses back.
-    setTimeout(() => {
-      this.expand.next()
-    })
+    event.stopPropagation()
+
+    this.expand.next()
   }
 
   onChecked(isChecked: boolean) {

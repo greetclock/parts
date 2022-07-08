@@ -33,7 +33,11 @@ export class TodosFacadeService {
   }
 
   deleteTodo(uuid: Todo['uuid']): Observable<void> {
-    return this.todosAdapter.deleteTodo(uuid)
+    const result$ = this.todosData.deleteTodo(uuid)
+
+    result$.subscribe()
+
+    return result$
   }
 
   updateTodo(todo: Todo): Observable<Todo> {
