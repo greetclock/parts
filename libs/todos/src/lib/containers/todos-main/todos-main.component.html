@@ -1,5 +1,7 @@
 <div class="grid">
-  <parts-sidebar class="sidebar invisible sm:visible"></parts-sidebar>
+  <parts-sidebar
+    class="sidebar invisible sm:visible bg-slate-50 border-r-2 border-gray-100"
+  ></parts-sidebar>
   <div [class.bg-gray-50]="state.isTodoExpanded$ | async">
     <router-outlet></router-outlet>
   </div>
