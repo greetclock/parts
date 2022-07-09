@@ -1,4 +1,9 @@
-import { Component } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
+
+interface Link {
+  link: string
+  text: string
+}
 
 @Component({
   selector: 'parts-sidebar',
@@ -6,14 +11,20 @@ import { Component } from '@angular/core'
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
-  links = [
+  @Output() linkSelected = new EventEmitter<Link>()
+
+  links: Link[] = [
     {
-      link: 'today',
+      link: '/todos/today',
       text: '⭐️ Today',
     },
     {
-      link: 'logbook',
+      link: '/todos/logbook',
       text: '✅ Logbook',
     },
   ]
+
+  onLinkSelected(link: Link) {
+    this.linkSelected.next(link)
+  }
 }
