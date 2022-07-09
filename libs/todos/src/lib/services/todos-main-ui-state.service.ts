@@ -6,6 +6,7 @@ import { combineLatest, map, Observable } from 'rxjs'
 export interface TodosMainUiState {
   addingNew: boolean
   expandedEntry: Todo['uuid'] | null
+  logbookOpened: boolean
 }
 
 @Injectable()
@@ -48,10 +49,17 @@ export class TodosMainUiStateService {
     })
   }
 
+  logbookOpened(opened: boolean) {
+    this.state.set({
+      logbookOpened: opened,
+    })
+  }
+
   private initializeUiState() {
     const initialState: TodosMainUiState = {
       addingNew: false,
       expandedEntry: null,
+      logbookOpened: false,
     }
 
     this.state.set(initialState)

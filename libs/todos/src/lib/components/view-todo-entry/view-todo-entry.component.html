@@ -45,7 +45,7 @@
         (keydown.enter)="onSave()"
         (keydown.meta.enter)="onSave()"
         [(ngModel)]="todo.title"
-        partsAutofocus
+        [partsAutofocus]="enableAutofocus"
       />
       <textarea
         placeholder="Notes"

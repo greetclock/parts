@@ -3,6 +3,7 @@ import {
   mockProvider,
   Spectator,
 } from '@ngneat/spectator/jest'
+import { mockObservable } from '@parts/test-helpers'
 import { TodosFacadeService } from '@parts/todos/data'
 import { EMPTY } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
@@ -15,6 +16,9 @@ describe('ControlsComponent', () => {
     providers: [
       mockProvider(TodosMainUiStateService, {
         isTodoExpanded$: EMPTY,
+        state: {
+          select: mockObservable(() => EMPTY),
+        },
       }),
       mockProvider(TodosFacadeService),
     ],

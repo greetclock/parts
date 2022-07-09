@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 
 @Component({
   selector: 'parts-control-button',
@@ -6,6 +6,8 @@ import { Component, EventEmitter, Output } from '@angular/core'
   styleUrls: ['./control-button.component.css'],
 })
 export class ControlButtonComponent {
+  @Input() disabled = false
+
   @Output() buttonClick = new EventEmitter<void>()
 
   onButtonClick(event: Event) {

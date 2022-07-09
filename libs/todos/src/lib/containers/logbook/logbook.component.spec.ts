@@ -5,6 +5,7 @@ import {
 } from '@ngneat/spectator/jest'
 import { TodosFacadeService } from '@parts/todos/data'
 import { EMPTY } from 'rxjs'
+import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { LogbookComponent } from './logbook.component'
 
 describe('LogbookComponent', () => {
@@ -15,6 +16,7 @@ describe('LogbookComponent', () => {
       mockProvider(TodosFacadeService, {
         doneTodos$: EMPTY,
       }),
+      mockProvider(TodosMainUiStateService),
     ],
   })
 
@@ -22,5 +24,27 @@ describe('LogbookComponent', () => {
     spectator = createComponent()
 
     expect(spectator.component).toBeTruthy()
+  })
+
+  it('should mark that logbook was opened', () => {
+    spectator = createComponent()
+
+    expect(
+      spectator.inject(TodosMainUiStateService).logbookOpened
+    ).toHaveBeenCalledWith(true)
+  })
+
+  it('should mark that logbook was closed', () => {
+    spectator = createComponent()
+
+    spectator.fixture.destroy()
+
+    expect(
+      spectator.inject(TodosMainUiStateService).logbookOpened
+    ).toHaveBeenCalledTimes(2)
+
+    expect(
+      spectator.inject(TodosMainUiStateService).logbookOpened
+    ).toHaveBeenCalledWith(false)
   })
 })

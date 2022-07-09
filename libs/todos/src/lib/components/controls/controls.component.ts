@@ -14,6 +14,9 @@ export class ControlsComponent {
 
   enableExpandedControls$: Observable<boolean> = this.uiState.isTodoExpanded$
 
+  disableButtons$: Observable<boolean> =
+    this.uiState.state.select('logbookOpened')
+
   constructor(
     private uiState: TodosMainUiStateService,
     private todosFacade: TodosFacadeService

@@ -1,7 +1,8 @@
 <button
   type="button"
-  class="text-gray-700 h-8 my-2 w-24 hover:border-solid hover:border-2 active:bg-gray-200 active:border-gray-200 rounded-md flex items-center justify-center"
+  class="text-gray-700 h-8 my-2 w-24 hover:border-solid hover:border-2 active:bg-gray-200 active:border-gray-200 rounded-md flex items-center justify-center disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-300"
   (click)="onButtonClick($event)"
+  [disabled]="disabled"
 >
   <ng-content></ng-content>
 </button>
