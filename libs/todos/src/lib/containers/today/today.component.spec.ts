@@ -29,10 +29,4 @@ describe('TodayComponent', () => {
 
     expect(spectator.component).toBeTruthy()
   })
-
-  it('should request todos on init', () => {
-    spectator = createComponent()
-
-    expect(spectator.inject(TodosFacadeService).getTodos).toHaveBeenCalled()
-  })
 })
