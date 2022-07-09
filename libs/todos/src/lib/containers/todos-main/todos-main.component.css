@@ -10,6 +10,13 @@
     'Sidebar Footer';
 }
 
+@supports (-webkit-touch-callout: none) {
+  .grid {
+    /* The hack for Safari */
+    height: -webkit-fill-available;
+  }
+}
+
 @media (max-width: 639px) {
   .grid {
     grid-template-columns: 0 1fr;
