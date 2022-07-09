@@ -1,8 +1,11 @@
-<div class="h-screen" [class.bg-gray-50]="state.isTodoExpanded$ | async">
-  <div class="flex justify-center">
-    <div class="flex-auto max-w-5xl px-10">
+<div class="grid">
+  <parts-sidebar
+    class="sidebar invisible sm:visible bg-slate-50 border-r-2 border-gray-100"
+  ></parts-sidebar>
+  <div [class.bg-gray-50]="state.isTodoExpanded$ | async">
+    <div class="mx-5 mt-16 lg:mx-10">
       <router-outlet></router-outlet>
     </div>
   </div>
+  <parts-controls class="footer"></parts-controls>
 </div>
-<parts-controls></parts-controls>

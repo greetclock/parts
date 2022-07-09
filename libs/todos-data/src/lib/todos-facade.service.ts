@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { map, Observable } from 'rxjs'
 import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
 import { TodosDataService } from './todos-data.service'
 import { todos$ } from './todos.repository'
@@ -9,7 +9,10 @@ import { Todo } from './types'
   providedIn: 'root',
 })
 export class TodosFacadeService {
-  todos$ = todos$
+  todos$: Observable<Todo[]> = todos$
+  doneTodos$: Observable<Todo[]> = this.todos$.pipe(
+    map((todos) => todos.filter((it) => it.status === 'done'))
+  )
 
   constructor(
     private todosAdapter: TodosAdapterService,

@@ -1,0 +1,8 @@
+<h1 class="flex mb-12">
+  <span class="mt-1">✅</span>
+  <span class="text-2xl font-bold ml-2">Logbook</span>
+</h1>
+<parts-todo-entry
+  *ngFor="let todo of todosFacade.doneTodos$ | async"
+  [todo]="todo"
+></parts-todo-entry>

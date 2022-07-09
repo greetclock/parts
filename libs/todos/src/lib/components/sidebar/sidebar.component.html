@@ -1,0 +1,9 @@
+<div class="flex flex-col mx-4 mt-16">
+  <a
+    *ngFor="let link of links"
+    [routerLink]="link.link"
+    class="py-1 px-2 rounded-md"
+    routerLinkActive="bg-gray-200 font-bold"
+    >{{ link.text }}</a
+  >
+</div>

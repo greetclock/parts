@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { TodosFacadeService } from '@parts/todos/data'
-import { Subject, takeUntil } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 
 @Component({
@@ -8,26 +7,11 @@ import { TodosMainUiStateService } from '../../services/todos-main-ui-state.serv
   templateUrl: './today.component.html',
   styleUrls: ['./today.component.css'],
 })
-export class TodayComponent implements OnInit, OnDestroy {
+export class TodayComponent {
   addingNew$ = this.uiState.state.select('addingNew')
-
-  private destroy$ = new Subject<void>()
 
   constructor(
     private uiState: TodosMainUiStateService,
-    public todosFacade: TodosFacadeService
+    protected todosFacade: TodosFacadeService
   ) {}
-
-  ngOnInit(): void {
-    this.requestTodos()
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next()
-    this.destroy$.complete()
-  }
-
-  private requestTodos() {
-    this.todosFacade.getTodos().pipe(takeUntil(this.destroy$)).subscribe()
-  }
 }
