@@ -1,6 +1,9 @@
 <div class="h-12 flex justify-center border-t-2 border-gray-100 bg-white">
   <ng-container *ngIf="enableCollapsedControls$ | async">
-    <parts-control-button (buttonClick)="addNew()">
+    <parts-control-button
+      (buttonClick)="addNew()"
+      [disabled]="(disableButtons$ | async) ?? false"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5"
@@ -17,7 +20,10 @@
   </ng-container>
 
   <ng-container *ngIf="enableExpandedControls$ | async">
-    <parts-control-button (buttonClick)="onDelete()">
+    <parts-control-button
+      (buttonClick)="onDelete()"
+      [disabled]="(disableButtons$ | async) ?? false"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5"
