@@ -27,6 +27,10 @@ export class TodosMainComponent implements OnInit, OnDestroy {
     this.destroy$.complete()
   }
 
+  openSidebar() {
+    console.log('openSidebar')
+  }
+
   private requestTodos() {
     this.todosFacade.getTodos().pipe(takeUntil(this.destroy$)).subscribe()
   }
