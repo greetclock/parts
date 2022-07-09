@@ -9,11 +9,11 @@ export class SidebarComponent {
   links = [
     {
       link: 'today',
-      text: 'Today',
+      text: '⭐️ Today',
     },
     {
       link: 'logbook',
-      text: 'Logbook',
+      text: '✅ Logbook',
     },
   ]
 }

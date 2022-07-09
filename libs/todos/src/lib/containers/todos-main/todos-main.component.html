@@ -3,7 +3,9 @@
     class="sidebar invisible sm:visible bg-slate-50 border-r-2 border-gray-100"
   ></parts-sidebar>
   <div [class.bg-gray-50]="state.isTodoExpanded$ | async">
-    <router-outlet></router-outlet>
+    <div class="mx-5 mt-16 lg:mx-10">
+      <router-outlet></router-outlet>
+    </div>
   </div>
   <parts-controls class="footer"></parts-controls>
 </div>
