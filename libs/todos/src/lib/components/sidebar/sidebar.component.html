@@ -4,6 +4,7 @@
     [routerLink]="link.link"
     class="py-1 px-2 rounded-md"
     routerLinkActive="bg-gray-200 font-bold"
+    (click)="onLinkSelected(link)"
     >{{ link.text }}</a
   >
 </div>

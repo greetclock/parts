@@ -23,3 +23,11 @@
 .footer {
   grid-area: Footer;
 }
+
+::ng-deep .overlay-sidebar {
+  background-color: rgb(248 250 252);
+}
+
+::ng-deep .overlay-sidebar > parts-sidebar {
+  width: 100%;
+}
