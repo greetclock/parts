@@ -1,3 +1,4 @@
+import { Overlay } from '@angular/cdk/overlay'
 import {
   createComponentFactory,
   mockProvider,
@@ -21,6 +22,7 @@ describe('TodosMainComponent', () => {
         getTodos: mockObservable(() => EMPTY),
       }),
       TodosMainUiStateService,
+      mockProvider(Overlay),
     ],
   })
 
