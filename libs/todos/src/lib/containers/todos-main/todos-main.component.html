@@ -1,8 +1,13 @@
-<div class="h-screen" [class.bg-gray-50]="state.isTodoExpanded$ | async">
-  <div class="flex justify-center">
-    <div class="flex-auto max-w-5xl px-10">
-      <router-outlet></router-outlet>
+<div class="flex">
+  <parts-sidebar class="basis-2/12"></parts-sidebar>
+  <div class="flex-auto">
+    <div class="h-screen" [class.bg-gray-50]="state.isTodoExpanded$ | async">
+      <div class="flex justify-center">
+        <div class="flex-auto max-w-5xl px-10">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
+    <parts-controls></parts-controls>
   </div>
 </div>
-<parts-controls></parts-controls>
