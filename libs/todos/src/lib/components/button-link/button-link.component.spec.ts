@@ -7,7 +7,11 @@ describe('ButtonLinkComponent', () => {
   const createComponent = createComponentFactory(ButtonLinkComponent)
 
   it('should create', () => {
-    spectator = createComponent()
+    spectator = createComponent({
+      props: {
+        url: 'https://example.com',
+      },
+    })
 
     expect(spectator.component).toBeTruthy()
   })

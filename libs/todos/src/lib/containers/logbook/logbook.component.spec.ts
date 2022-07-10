@@ -4,7 +4,7 @@ import {
   Spectator,
 } from '@ngneat/spectator/jest'
 import { TodosFacadeService } from '@parts/todos/data'
-import { defer, EMPTY, of } from 'rxjs'
+import { EMPTY } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { LogbookComponent } from './logbook.component'
 
