@@ -17,6 +17,8 @@ export class ControlsComponent {
   disableAddButton$: Observable<boolean> =
     this.uiState.state.select('logbookOpened')
 
+  showControls$: Observable<boolean> = this.uiState.state.select('showControls')
+
   constructor(
     private uiState: TodosMainUiStateService,
     private todosFacade: TodosFacadeService

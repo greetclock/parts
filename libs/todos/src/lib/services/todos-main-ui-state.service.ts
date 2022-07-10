@@ -7,6 +7,7 @@ export interface TodosMainUiState {
   addingNew: boolean
   expandedEntry: Todo['uuid'] | null
   logbookOpened: boolean
+  showControls: boolean
 }
 
 @Injectable()
@@ -55,11 +56,24 @@ export class TodosMainUiStateService {
     })
   }
 
+  showControls() {
+    this.state.set({
+      showControls: true,
+    })
+  }
+
+  hideControls() {
+    this.state.set({
+      showControls: false,
+    })
+  }
+
   private initializeUiState() {
     const initialState: TodosMainUiState = {
       addingNew: false,
       expandedEntry: null,
       logbookOpened: false,
+      showControls: true,
     }
 
     this.state.set(initialState)
