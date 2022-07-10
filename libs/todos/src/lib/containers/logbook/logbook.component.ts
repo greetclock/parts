@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { TodosFacadeService } from '@parts/todos/data'
+import { combineLatest, map, Observable } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 
 @Component({
@@ -8,6 +9,13 @@ import { TodosMainUiStateService } from '../../services/todos-main-ui-state.serv
   styleUrls: ['./logbook.component.css'],
 })
 export class LogbookComponent implements OnInit, OnDestroy {
+  showEmptyState$: Observable<boolean> = combineLatest({
+    todosLoaded: this.todosFacade.todosLoaded$,
+    doneTodos: this.todosFacade.doneTodos$,
+  }).pipe(
+    map(({ todosLoaded, doneTodos }) => todosLoaded && doneTodos.length === 0)
+  )
+
   constructor(
     protected todosFacade: TodosFacadeService,
     private uiState: TodosMainUiStateService
