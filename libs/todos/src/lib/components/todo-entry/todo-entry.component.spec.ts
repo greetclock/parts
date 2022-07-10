@@ -38,6 +38,7 @@ describe('TodoEntryComponent', () => {
       }),
     ],
     declarations: [ViewTodoEntryComponent],
+    shallow: true,
   })
 
   let todo: Todo

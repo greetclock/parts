@@ -24,6 +24,7 @@ describe('TodosMainComponent', () => {
       TodosMainUiStateService,
       mockProvider(Overlay),
     ],
+    shallow: true,
   })
 
   it('should create', () => {

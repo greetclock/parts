@@ -1,10 +1,13 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator/jest'
-
+import { FormsModule } from '@angular/forms'
+import { createComponentFactory, Spectator } from '@ngneat/spectator/jest'
 import { CheckboxComponent } from './checkbox.component'
 
 describe('CheckboxComponent', () => {
   let spectator: Spectator<CheckboxComponent>
-  const createComponent = createComponentFactory(CheckboxComponent)
+  const createComponent = createComponentFactory({
+    component: CheckboxComponent,
+    imports: [FormsModule],
+  })
 
   it('should create', () => {
     spectator = createComponent({

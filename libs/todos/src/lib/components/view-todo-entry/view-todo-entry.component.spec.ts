@@ -4,7 +4,10 @@ import { ViewTodoEntryComponent } from './view-todo-entry.component'
 
 describe('ViewTodoEntryComponent', () => {
   let spectator: Spectator<ViewTodoEntryComponent>
-  const createComponent = createComponentFactory(ViewTodoEntryComponent)
+  const createComponent = createComponentFactory({
+    component: ViewTodoEntryComponent,
+    shallow: true,
+  })
 
   it('should create', () => {
     spectator = createComponent({

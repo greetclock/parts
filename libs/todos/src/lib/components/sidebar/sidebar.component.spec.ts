@@ -19,6 +19,7 @@ describe('SidebarComponent', () => {
         todosNumber$: defer(() => of(todosNumber)),
       }),
     ],
+    shallow: true,
   })
 
   beforeEach(() => {
