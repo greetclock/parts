@@ -16,3 +16,7 @@
   [todo]="todo"
 ></parts-todo-entry>
 <parts-new-todo *ngIf="addingNew$ | async"></parts-new-todo>
+
+<div *ngIf="showCallToAction$ | async">
+  <span class="font-bold">Add your first To-Do!</span>
+</div>

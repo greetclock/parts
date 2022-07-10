@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { map, Observable } from 'rxjs'
+import { BehaviorSubject, map, Observable } from 'rxjs'
 import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
 import { TodosDataService } from './todos-data.service'
 import { todos$ } from './todos.repository'
@@ -16,10 +16,13 @@ export class TodosFacadeService {
   activeTodos$: Observable<Todo[]> = this.todos$.pipe(
     map((todos) => todos.filter((it) => it.status === 'pending'))
   )
-
   todosNumber$: Observable<number> = this.activeTodos$.pipe(
     map((todos) => todos.length)
   )
+
+  private todosLoadedSubject = new BehaviorSubject<boolean>(false)
+
+  todosLoaded$ = this.todosLoadedSubject.asObservable()
 
   constructor(
     private todosAdapter: TodosAdapterService,
@@ -27,7 +30,11 @@ export class TodosFacadeService {
   ) {}
 
   getTodos(): Observable<Todo[]> {
-    return this.todosData.getTodos()
+    const todos$ = this.todosData.getTodos()
+
+    todos$.subscribe(() => this.todosLoadedSubject.next(true))
+
+    return todos$
   }
 
   getTodoByUuid(uuid: Todo['uuid']): Observable<Todo | null> {

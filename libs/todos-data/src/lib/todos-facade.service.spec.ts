@@ -1,3 +1,4 @@
+import { fakeAsync, tick } from '@angular/core/testing'
 import { SpectatorService } from '@ngneat/spectator'
 import { createServiceFactory, mockProvider } from '@ngneat/spectator/jest'
 import { mockObservable } from '@parts/test-helpers'
@@ -55,6 +56,43 @@ describe('TodosFacadeService', () => {
         done()
       })
     })
+
+    it('should have todos loaded false by default', () => {
+      spectator = createService()
+
+      let todosLoaded: boolean | undefined
+      spectator.service.todosLoaded$.subscribe(
+        (loaded) => (todosLoaded = loaded)
+      )
+
+      expect(todosLoaded).toEqual(false)
+    })
+
+    it('should mark todos as loaded', fakeAsync(() => {
+      todosList = [
+        {
+          uuid: 'uuid1',
+          title: 'Buy milk',
+          status: 'pending',
+        },
+        {
+          uuid: 'uuid2',
+          title: 'Code things',
+          status: 'pending',
+        },
+      ]
+
+      spectator = createService()
+      spectator.service.getTodos()
+      tick()
+
+      let todosLoaded = false
+      spectator.service.todosLoaded$.subscribe(
+        (loaded) => (todosLoaded = loaded)
+      )
+
+      expect(todosLoaded).toEqual(true)
+    }))
   })
 
   describe('getTodoByUuid()', () => {
