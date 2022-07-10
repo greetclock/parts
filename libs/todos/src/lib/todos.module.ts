@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { TodosDataModule } from '@parts/todos/data'
+import { ButtonLinkComponent } from './components/button-link/button-link.component'
 import { CheckboxComponent } from './components/checkbox/checkbox.component'
 import { ControlButtonComponent } from './components/control-button/control-button.component'
 import { ControlsComponent } from './components/controls/controls.component'
@@ -40,6 +41,7 @@ import { AutofocusDirective } from './utils/autofocus.directive'
     LogbookComponent,
     SidebarComponent,
     AboutComponent,
+    ButtonLinkComponent,
   ],
 })
 export class TodosModule {}
