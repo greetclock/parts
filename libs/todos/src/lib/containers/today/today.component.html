@@ -12,7 +12,7 @@
   <span class="text-2xl font-bold ml-1">To-Do List</span>
 </h1>
 <parts-todo-entry
-  *ngFor="let todo of todosFacade.todos$ | async"
+  *ngFor="let todo of todosFacade.activeTodos$ | async"
   [todo]="todo"
 ></parts-todo-entry>
 <parts-new-todo *ngIf="addingNew$ | async"></parts-new-todo>
