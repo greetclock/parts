@@ -17,6 +17,7 @@ import { LogbookComponent } from './containers/logbook/logbook.component'
 import { TodayComponent } from './containers/today/today.component'
 import { TodosMainComponent } from './containers/todos-main/todos-main.component'
 import { TodosRoutingModule } from './routing/todos-routing.module'
+import { AboutRedirectionService } from './services/about-redirection.service'
 import { AutofocusDirective } from './utils/autofocus.directive'
 
 @NgModule({
@@ -44,4 +45,8 @@ import { AutofocusDirective } from './utils/autofocus.directive'
     ButtonLinkComponent,
   ],
 })
-export class TodosModule {}
+export class TodosModule {
+  constructor(aboutRedirection: AboutRedirectionService) {
+    aboutRedirection.initialize()
+  }
+}
