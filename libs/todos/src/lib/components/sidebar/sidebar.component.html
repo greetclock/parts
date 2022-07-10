@@ -2,9 +2,11 @@
   <a
     *ngFor="let link of links"
     [routerLink]="link.link"
-    class="py-1 px-2 rounded-md"
-    routerLinkActive="bg-gray-200 font-bold"
+    class="py-1 px-2 rounded-md flex justify-between"
+    routerLinkActive="bg-gray-200"
     (click)="onLinkSelected(link)"
-    >{{ link.text }}</a
   >
+    <span class="font-bold">{{ link.text }}</span>
+    <span class="text-gray-500">{{ link.endText }}</span>
+  </a>
 </div>
