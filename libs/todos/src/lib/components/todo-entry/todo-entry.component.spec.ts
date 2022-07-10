@@ -8,9 +8,10 @@ import {
 import { mockObservable } from '@parts/test-helpers'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
 import { EMPTY, NEVER } from 'rxjs'
+import { CHECKED_DELAY } from '../../services/todo-checked-timer.service'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { ViewTodoEntryComponent } from '../view-todo-entry/view-todo-entry.component'
-import { CHECKED_DELAY, TodoEntryComponent } from './todo-entry.component'
+import { TodoEntryComponent } from './todo-entry.component'
 
 describe('TodoEntryComponent', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
