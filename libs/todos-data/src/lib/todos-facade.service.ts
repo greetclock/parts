@@ -13,6 +13,13 @@ export class TodosFacadeService {
   doneTodos$: Observable<Todo[]> = this.todos$.pipe(
     map((todos) => todos.filter((it) => it.status === 'done'))
   )
+  activeTodos$: Observable<Todo[]> = this.todos$.pipe(
+    map((todos) => todos.filter((it) => it.status === 'pending'))
+  )
+
+  todosNumber$: Observable<number> = this.activeTodos$.pipe(
+    map((todos) => todos.length)
+  )
 
   constructor(
     private todosAdapter: TodosAdapterService,

@@ -20,6 +20,7 @@ describe('NewTodoComponent', () => {
       }),
       TodosMainUiStateService,
     ],
+    shallow: true,
   })
 
   it('should create', () => {
