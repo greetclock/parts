@@ -1,8 +1,19 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
-import { map, Subject, takeUntil } from 'rxjs'
+import {
+  debounceTime,
+  first,
+  map,
+  merge,
+  mergeMap,
+  Observable,
+  Subject,
+  takeUntil,
+} from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { ViewTodo } from '../view-todo-entry/view-todo-entry.component'
+
+export const CHECKED_DELAY = 2000
 
 @Component({
   selector: 'parts-todo-entry',
@@ -15,6 +26,13 @@ export class TodoEntryComponent implements OnInit, OnDestroy {
   protected isExpanded = false
 
   private destroy$ = new Subject<void>()
+
+  private checked$ = new Subject<void>()
+
+  private flushChecked$: Observable<void> = merge(
+    this.destroy$,
+    this.checked$.pipe(debounceTime(CHECKED_DELAY))
+  )
 
   constructor(
     private todosFacade: TodosFacadeService,
@@ -32,10 +50,19 @@ export class TodoEntryComponent implements OnInit, OnDestroy {
   }
 
   onChecked(isChecked: boolean) {
-    this.todosFacade.updateTodoStatus(
-      this.todo.uuid,
-      this.getTodoStatus(isChecked)
-    )
+    this.flushChecked$
+      .pipe(
+        first(),
+        mergeMap(() =>
+          this.todosFacade.updateTodoStatus(
+            this.todo.uuid,
+            this.getTodoStatus(isChecked)
+          )
+        )
+      )
+      .subscribe()
+
+    this.checked$.next()
   }
 
   onSave(todo: ViewTodo) {

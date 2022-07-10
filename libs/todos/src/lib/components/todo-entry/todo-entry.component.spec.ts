@@ -7,10 +7,10 @@ import {
 } from '@ngneat/spectator/jest'
 import { mockObservable } from '@parts/test-helpers'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
-import { EMPTY } from 'rxjs'
+import { EMPTY, NEVER } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { ViewTodoEntryComponent } from '../view-todo-entry/view-todo-entry.component'
-import { TodoEntryComponent } from './todo-entry.component'
+import { CHECKED_DELAY, TodoEntryComponent } from './todo-entry.component'
 
 describe('TodoEntryComponent', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,18 +64,43 @@ describe('TodoEntryComponent', () => {
     expect(() => createComponent()).toThrow()
   })
 
-  it('should send the updated status to the facade', () => {
-    spectator = createComponent({
-      props: {
-        todo,
-      },
-    })
+  describe('onChecked()', () => {
+    it('should send the updated status to the facade after 2 seconds', fakeAsync(() => {
+      spectator = createComponent({
+        props: {
+          todo,
+        },
+      })
 
-    spectator.component.onChecked(true)
+      const updateTodosStatus =
+        spectator.inject(TodosFacadeService).updateTodoStatus
 
-    expect(
-      spectator.inject(TodosFacadeService).updateTodoStatus
-    ).toHaveBeenCalledWith('uuid1', 'done')
+      spectator.component.onChecked(true)
+      expect(updateTodosStatus).not.toHaveBeenCalled()
+      tick(CHECKED_DELAY)
+
+      expect(updateTodosStatus).toHaveBeenCalledWith('uuid1', 'done')
+    }))
+
+    it('should update todo status if it was destroyed after being checked', fakeAsync(() => {
+      spectator = createComponent({
+        props: {
+          todo,
+        },
+      })
+
+      spectator.inject(TodosFacadeService).castToWritable().updateTodoStatus =
+        jest.fn().mockReturnValue(NEVER)
+
+      const updateTodosStatus =
+        spectator.inject(TodosFacadeService).updateTodoStatus
+
+      spectator.component.onChecked(true)
+      expect(updateTodosStatus).not.toHaveBeenCalled()
+
+      spectator.fixture.destroy()
+      expect(updateTodosStatus).toHaveBeenCalledWith('uuid1', 'done')
+    }))
   })
 
   it('should expand entry on click', fakeAsync(() => {
