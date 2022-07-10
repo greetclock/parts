@@ -4,7 +4,7 @@ import {
   Spectator,
 } from '@ngneat/spectator/jest'
 import { TodosFacadeService } from '@parts/todos/data'
-import { EMPTY } from 'rxjs'
+import { defer, EMPTY, of } from 'rxjs'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { LogbookComponent } from './logbook.component'
 
@@ -15,6 +15,7 @@ describe('LogbookComponent', () => {
     providers: [
       mockProvider(TodosFacadeService, {
         doneTodos$: EMPTY,
+        todosLoaded$: EMPTY,
       }),
       mockProvider(TodosMainUiStateService),
     ],
