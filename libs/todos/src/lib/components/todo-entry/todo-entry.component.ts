@@ -1,6 +1,15 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { Todo, TodosFacadeService } from '@parts/todos/data'
-import { map, Subject, takeUntil } from 'rxjs'
+import {
+  first,
+  map,
+  merge,
+  mergeMap,
+  Observable,
+  Subject,
+  takeUntil,
+} from 'rxjs'
+import { TodoCheckedTimerService } from '../../services/todo-checked-timer.service'
 import { TodosMainUiStateService } from '../../services/todos-main-ui-state.service'
 import { ViewTodo } from '../view-todo-entry/view-todo-entry.component'
 
@@ -16,9 +25,15 @@ export class TodoEntryComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>()
 
+  private flushChecked$: Observable<void> = merge(
+    this.destroy$,
+    this.todoCheckedTimer.checked$
+  )
+
   constructor(
     private todosFacade: TodosFacadeService,
-    private uiState: TodosMainUiStateService
+    private uiState: TodosMainUiStateService,
+    private todoCheckedTimer: TodoCheckedTimerService
   ) {}
 
   ngOnInit(): void {
@@ -32,10 +47,19 @@ export class TodoEntryComponent implements OnInit, OnDestroy {
   }
 
   onChecked(isChecked: boolean) {
-    this.todosFacade.updateTodoStatus(
-      this.todo.uuid,
-      this.getTodoStatus(isChecked)
-    )
+    this.flushChecked$
+      .pipe(
+        first(),
+        mergeMap(() =>
+          this.todosFacade.updateTodoStatus(
+            this.todo.uuid,
+            this.getTodoStatus(isChecked)
+          )
+        )
+      )
+      .subscribe()
+
+    this.todoCheckedTimer.checkTodo()
   }
 
   onSave(todo: ViewTodo) {
