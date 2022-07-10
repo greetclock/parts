@@ -23,7 +23,7 @@ const TODAY_ID = 'today'
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  @Output() linkSelected = new EventEmitter<Link>()
+  @Output() linkSelected = new EventEmitter<Link | null>()
 
   links: Link[] = [
     {
@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.destroy$.complete()
   }
 
-  onLinkSelected(link: Link) {
+  onLinkSelected(link: Link | null = null) {
     this.linkSelected.next(link)
   }
 

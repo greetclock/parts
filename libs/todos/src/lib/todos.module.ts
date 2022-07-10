@@ -11,6 +11,7 @@ import { NewTodoComponent } from './components/new-todo/new-todo.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { TodoEntryComponent } from './components/todo-entry/todo-entry.component'
 import { ViewTodoEntryComponent } from './components/view-todo-entry/view-todo-entry.component'
+import { AboutComponent } from './containers/about/about.component'
 import { LogbookComponent } from './containers/logbook/logbook.component'
 import { TodayComponent } from './containers/today/today.component'
 import { TodosMainComponent } from './containers/todos-main/todos-main.component'
@@ -38,6 +39,7 @@ import { AutofocusDirective } from './utils/autofocus.directive'
     ControlButtonComponent,
     LogbookComponent,
     SidebarComponent,
+    AboutComponent,
   ],
 })
 export class TodosModule {}
