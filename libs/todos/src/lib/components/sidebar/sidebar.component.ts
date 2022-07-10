@@ -16,7 +16,7 @@ export class SidebarComponent {
   links: Link[] = [
     {
       link: '/todos/today',
-      text: '⭐️ Today',
+      text: '⭐️ To-Do List',
     },
     {
       link: '/todos/logbook',
