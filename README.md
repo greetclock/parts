@@ -1,98 +1,32 @@
 # Parts
 
-This project was generated using [Nx](https://nx.dev).
+Demonstration of clean architecture in the frontend. This is a small example project that follows good practices suitable for larger codebases. I wrote an article (INSERT LINK LATER) to explain the main concepts I use here.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/greetclock/parts/CI?style=flat-square)
+![Netlify](https://img.shields.io/netlify/72dae1a2-06a4-40dc-be5f-5aa2654f0965?style=flat-square)
 
-🔎 **Smart, Fast and Extensible Build System**
+## Running locally
 
-## Quick Start & Documentation
+This project was generated using [Nx](https://nx.dev). That's a usefull tool for managing large-scale frontend applications. At the same time, it's suitable for smaller projects too. It supports Angular, React, and several backend frameworks too. You can install nx CLI or use it by calling `npx nx ...`.
 
-[Nx Documentation](https://nx.dev/angular)
+- `npm i` to install dependencies
+- `npx nx serve parts` to run the main app from `apps/parts`
 
-[10-minute video showing all Nx features](https://nx.dev/getting-started/intro)
+You can run tests with `npx nx run <lib or app name>:test`. For example: `npx nx run todos:test` or `npx nx run todos-data:test`.
 
-[Interactive Tutorial](https://nx.dev/react-tutorial/01-create-application)
+## Project structure
 
-## Adding capabilities to your workspace
+There are `apps` and `libs`. Apps aren't supposed to contain almost any logic, and their main job is to bring features or libs together. Libs contain all the fun. It can be almost everything:
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+- Full feature for an application like `todos` library
+- Headless data library that can be re-used by several features: `todos-data`
+- Very small helper library to handle basic initialization logic for a feature: `todos-registry`
+- There even can be code that doesn't go to the build. It still can help with testing: `test-helpers`.
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+Other typical packages are UI libraries, utility functions, and classic libraries if you build them in-house.
 
-Below are our core plugins:
+## What's next?
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+If you are interested in learning more, I encourage you to read the source code, run it locally and perhaps play with the code. You can also read the article where I explain the approach (INSERT LINK LATER).
 
-There are also many [community plugins](https://nx.dev/community) you could add.
-
-## Generate an application
-
-Run `ng g @nrwl/angular:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@parts/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+Author: [Alexey Karpov](https://alexeykarpov.com).
