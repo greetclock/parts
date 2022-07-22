@@ -34,7 +34,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         ...createTodo,
       }
 
-      if (Math.random() < this.probabilityOfFailure) {
+      if (this.isResponseFailed()) {
         setTimeout(() => {
           const error = new Error('Unknown error')
           console.warn(error)
@@ -154,5 +154,9 @@ export class LocalTodosAdapterService extends TodosAdapterService {
       localStorage.removeItem('todos')
       window.location.reload()
     }
+  }
+
+  private isResponseFailed(): boolean {
+    return Math.random() < this.probabilityOfFailure
   }
 }
