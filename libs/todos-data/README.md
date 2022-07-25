@@ -1,7 +1,3 @@
 # todos-data
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test todos-data` to execute the unit tests.
+This library contains the main business logic of the To-Dos feature. It represents the data layer. The library should include only domain-specific logic, and it should not consider any of the UI-related state.
