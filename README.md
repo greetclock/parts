@@ -1,6 +1,6 @@
 # Parts
 
-Demonstration of clean architecture in the frontend. This is a small example project that follows good practices suitable for larger codebases. I wrote an article (INSERT LINK LATER) to explain the main concepts I use here.
+Demonstration of clean architecture in the frontend. This is a small example project that follows good practices suitable for larger codebases. I wrote an [article](https://blog.alexeykarpov.com/clean-architecture-in-frontend) to explain the main concepts I use here.
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/greetclock/parts/CI?style=flat-square)
 ![Netlify](https://img.shields.io/netlify/72dae1a2-06a4-40dc-be5f-5aa2654f0965?style=flat-square)
@@ -27,6 +27,6 @@ Other typical packages are UI libraries, utility functions, and classic librarie
 
 ## What's next?
 
-If you are interested in learning more, I encourage you to read the source code, run it locally and perhaps play with the code. You can also read the article where I explain the approach (INSERT LINK LATER).
+If you are interested in learning more, I encourage you to read the source code, run it locally and perhaps play with the code. You can also read the [article](https://blog.alexeykarpov.com/clean-architecture-in-frontend) where I explain the approach.
 
 Author: [Alexey Karpov](https://alexeykarpov.com).
