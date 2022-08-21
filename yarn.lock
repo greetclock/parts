@@ -2171,10 +2171,10 @@
   resolved "https://registry.yarnpkg.com/@ngneat/elf-devtools/-/elf-devtools-1.2.1.tgz#8b137328df8a328cc472f9609477282dc506883b"
   integrity sha512-emoTCmOxzFI3H04HGpagfaMY9OzmoCvTLoKGvTtN0Fx+JHLhj/HXzSzirAxrkWUwmNTAhCcOmbPPNjAeL1QAuA==
 
-"@ngneat/elf-entities@^4.4.1":
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/@ngneat/elf-entities/-/elf-entities-4.4.1.tgz#0d88583140acd54fca17b7126d490713cc9b6031"
-  integrity sha512-jAtBYG2lnk5Fl2FvCbGc0m+8ZBj7so7CgDvCymFixiiq/WSivxFCiqy8O2d+9suNlLORXGyQ9CW1J+lohSdYEw==
+"@ngneat/elf-entities@~4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@ngneat/elf-entities/-/elf-entities-4.3.1.tgz#d1b9465dccff1c6c1e28b1de10787aaac8e1a244"
+  integrity sha512-CoCWgO8XsHN9bJOQHC517ZbYEEmRQrPEgMMoVrV210U9Q43/yfyEeRoyt2AOvw1PB8d5/I+/VqwHKVxJkuRFBA==
 
 "@ngneat/elf-pagination@^1.0.1":
   version "1.0.1"

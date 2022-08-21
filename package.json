@@ -26,7 +26,7 @@
     "@ngneat/elf": "^2.1.0",
     "@ngneat/elf-cli-ng": "^1.0.0",
     "@ngneat/elf-devtools": "^1.2.1",
-    "@ngneat/elf-entities": "^4.4.1",
+    "@ngneat/elf-entities": "~4.3.1",
     "@ngneat/elf-pagination": "^1.0.1",
     "@ngneat/elf-persist-state": "^1.1.4",
     "@ngneat/elf-requests": "^1.1.4",
