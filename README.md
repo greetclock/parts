@@ -7,12 +7,12 @@ Demonstration of clean architecture in the frontend. This is a small example pro
 
 ## Running locally
 
-This project was generated using [Nx](https://nx.dev). That's a usefull tool for managing large-scale frontend applications. At the same time, it's suitable for smaller projects too. It supports Angular, React, and several backend frameworks too. You can install nx CLI or use it by calling `npx nx ...`.
+This project was generated using [Nx](https://nx.dev). That's a usefull tool for managing large-scale frontend applications. At the same time, it's suitable for smaller projects too. It supports Angular, React, and several backend frameworks too. You can install nx CLI or use it by calling `yarn nx ...`.
 
-- `npm i` to install dependencies
-- `npx nx serve parts` to run the main app from `apps/parts`
+- `yarn install` to install dependencies
+- `yarn nx serve parts` to run the main app from `apps/parts`
 
-You can run tests with `npx nx run <lib or app name>:test`. For example: `npx nx run todos:test` or `npx nx run todos-data:test`.
+You can run tests with `yarn nx run <lib or app name>:test`. For example: `yarn nx run todos:test` or `yarn nx run todos-data:test`.
 
 ## Project structure
 
