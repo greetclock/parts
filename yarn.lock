@@ -2171,20 +2171,20 @@
   resolved "https://registry.yarnpkg.com/@ngneat/elf-devtools/-/elf-devtools-1.2.1.tgz#8b137328df8a328cc472f9609477282dc506883b"
   integrity sha512-emoTCmOxzFI3H04HGpagfaMY9OzmoCvTLoKGvTtN0Fx+JHLhj/HXzSzirAxrkWUwmNTAhCcOmbPPNjAeL1QAuA==
 
-"@ngneat/elf-entities@~4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@ngneat/elf-entities/-/elf-entities-4.3.1.tgz#d1b9465dccff1c6c1e28b1de10787aaac8e1a244"
-  integrity sha512-CoCWgO8XsHN9bJOQHC517ZbYEEmRQrPEgMMoVrV210U9Q43/yfyEeRoyt2AOvw1PB8d5/I+/VqwHKVxJkuRFBA==
+"@ngneat/elf-entities@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@ngneat/elf-entities/-/elf-entities-4.4.2.tgz#9cf88d7b0ee73c6440ec7bb54b7e372b40b77c68"
+  integrity sha512-e9bgL7k9nI419IM1uSHt+WZYesCWhbsbs9+7QVDpXXMKCwCN8lofUX2aATiDxEmw+9riC5o45BGWaSLVMch1QA==
 
 "@ngneat/elf-pagination@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@ngneat/elf-pagination/-/elf-pagination-1.0.1.tgz#def9021fd39c6673008de83d379b09787fa22d13"
   integrity sha512-Q4Z/JsZ03lrXBCaJ6vHVTMB005r1+ZWRxs1FNKbAEoocGu6pZ43I56rkAyspoV5B0MmgV6B7FbFOg2fV61QUZw==
 
-"@ngneat/elf-persist-state@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@ngneat/elf-persist-state/-/elf-persist-state-1.1.4.tgz#85ad98419a5f22e5e0d0b9b2025393d33f04c396"
-  integrity sha512-IP7rvDZYpUoVQys2hIGcLRwjvtEwUQHtc0dVnXFgTbL/xCvybvqRi8zfL74KgHGKP/q7rTOpYWvQY1u4wA0A4w==
+"@ngneat/elf-persist-state@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@ngneat/elf-persist-state/-/elf-persist-state-1.1.5.tgz#ab376d4985820c737ef233831718112c222fd628"
+  integrity sha512-Dcl7TNXWnoNVHjaYVZHoDVKkM9LGgNTc5snIjif0huVktZT6ncMryI0hsMtHLGYNmkQJmaeb+MRAkcIRyjZcag==
 
 "@ngneat/elf-requests@^1.1.4":
   version "1.1.4"
@@ -2989,7 +2989,7 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/node@*", "@types/node@18.7.8", "@types/node@>=12":
+"@types/node@*", "@types/node@>=12":
   version "18.7.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.8.tgz#6bbf2be6fbf9c187a5040d4277d24a06a18957a1"
   integrity sha512-/YP55EMK2341JkODUb8DM9O0x1SIz2aBvyF33Uf1c76St3VpsMXEIW0nxuKkq/5cxnbz0RD9cfwNZHEAZQD3ag==
@@ -2998,6 +2998,11 @@
   version "14.18.24"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.18.24.tgz#406b220dc748947e1959d8a38a75979e87166704"
   integrity sha512-aJdn8XErcSrfr7k8ZDDfU6/2OgjZcB2Fu9d+ESK8D7Oa5mtsv8Fa8GpcwTA0v60kuZBaalKPzuzun4Ov1YWO/w==
+
+"@types/node@^16":
+  version "16.11.52"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.52.tgz#d797437435455f237800c171d05639f0335c37b9"
+  integrity sha512-GnstYouCa9kbYokBCWEVrszJ1P2rGAQpKrqACHKuixkaT8XGu8nsqHvEUIGqDs5vwtsJ7LrYqnPDKRD1V+M39A==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
